@@ -1,5 +1,5 @@
 # Fixed Java patch tags; update only after reviewing official image release notes.
-FROM eclipse-temurin:21.0.13_9-jdk-noble AS build
+FROM eclipse-temurin:24.0.2_12-jdk-noble AS build
 # Wrapper validates the ZIP checksum; without unzip it silently downloads TAR.GZ instead.
 RUN apt-get update && apt-get install -y --no-install-recommends unzip \
     && rm -rf /var/lib/apt/lists/*
@@ -10,7 +10,7 @@ COPY src/main/ src/main/
 # Tests run in CI before the image smoke job. Packaging alone is not test evidence.
 RUN chmod 0755 mvnw && ./mvnw -B -ntp -Dmaven.test.skip=true package
 
-FROM eclipse-temurin:21.0.13_9-jre-noble AS runtime
+FROM eclipse-temurin:24.0.2_12-jre-noble AS runtime
 WORKDIR /app
 RUN groupadd --system --gid 10001 dataguard \
     && useradd --system --uid 10001 --gid 10001 --home-dir /app --shell /usr/sbin/nologin dataguard \
