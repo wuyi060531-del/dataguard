@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DataGuard · 数据质量检测</title>
+  <link rel="stylesheet" href="/app.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+<main>
+  <header><span class="eyebrow">JAVA DATA QUALITY PLATFORM · V1.1</span>
+    <h1>DataGuard</h1><p>读取订单数据，定位质量问题，保存每一次检测。</p></header>
+  <p id="message" role="status" aria-live="polite">正在读取本地任务记录…</p>
+  <section aria-labelledby="dataset-title">
+    <h2 id="dataset-title">1. 选择数据</h2>
+    <p>上传 CSV，或使用项目内的 40 条模拟订单。原始数据保持不变。</p>
+    <form id="upload-form">
+      <label for="csv-file">CSV 文件（UTF-8，最多 5 MiB）</label>
+      <div class="actions"><input id="csv-file" name="file" type="file" accept=".csv" required>
+        <button type="submit">上传文件</button><button id="sample" type="button" class="secondary">导入模拟订单</button></div>
+    </form>
+    <label for="dataset">已保存的数据集</label>
+    <div class="actions"><select id="dataset"><option value="">请选择数据集</option></select>
+      <button id="inspect" type="button" disabled>开始检测</button></div>
+    <p class="muted">规则：必填、订单编号重复、字段类型、数值范围、日期、状态和订单总额。检测不会清洗或修改数据。</p>
+  </section>
+  <section id="result" aria-labelledby="report-title" hidden>
+    <h2 id="report-title">2. 检测结果</h2>
+    <p id="report-source"></p>
+    <div id="metrics" class="metrics"></div>
+    <p id="rules"></p>
+    <p class="actions"><a id="json-report" href="#" target="_blank" rel="noopener">查看完整 JSON</a>
+      <a id="html-report" href="#" target="_blank" rel="noopener">查看可阅读 HTML</a></p>
+    <p class="muted">异常记录按记录去重；一条记录可有多项问题。质量分为正常记录占比，含警告的记录也归为异常。</p>
+    <div class="table-wrap"><table><caption>详细问题（页面展示前 100 项，完整清单见报告）</caption>
+      <thead><tr><th>记录 / 文件行</th><th>订单编号</th><th>字段</th><th>规则</th><th>严重程度</th><th>原因</th></tr></thead>
+      <tbody id="issues"></tbody></table></div>
+  </section>
+  <section aria-labelledby="history-title">
+    <div class="heading"><h2 id="history-title">历史任务</h2><button id="refresh" type="button" class="secondary">刷新</button></div>
+    <div class="table-wrap"><table><caption>每次执行独立保存，关闭服务后仍可继续查询</caption>
+      <thead><tr><th>创建时间</th><th>任务</th><th>状态</th><th>记录 / 异常</th><th>质量</th><th>查看</th></tr></thead>
+      <tbody id="history"></tbody></table></div>
+    <button id="more" type="button" class="secondary" hidden>加载更多任务</button>
+  </section>
+  <footer>本机单实例演示 · 正式代码由 Codex 辅助实现 · 独立学习进度单独记录</footer>
+</main>
+</body>
+</html>

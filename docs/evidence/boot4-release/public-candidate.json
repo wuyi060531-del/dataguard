@@ -1,0 +1,119 @@
+{
+  "sourceRevision": "4c036fcdfbe96622740ce8b697ce81ad96be1b18",
+  "manifestSha256": "075368cb12af2a848c011d3c2b50e824691f868a8ffd83b207cc83a4b00fced4",
+  "fileCount": 90,
+  "noGitHistory": true,
+  "excludedAreasAbsent": true,
+  "java": "21.0.13",
+  "maven": "3.9.11",
+  "springBoot": "4.1.2",
+  "mysql": "8.4.13",
+  "command": "DATAGUARD_JAVA_HOME=<JDK21> bash scripts/mvn.sh -o -B -ntp clean verify (isolated container test database supplied)",
+  "mavenSeconds": 20.777,
+  "totals": {
+    "tests": 94,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "suites": [
+    {
+      "suite": "dataguard.api.ApiIntegrationTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "dataguard.cli.InspectionCliTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "dataguard.core.QualityEngineTest",
+      "tests": 56,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "dataguard.core.ReportRendererTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "dataguard.persistence.InspectionRepositoryTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "dataguard.persistence.MySqlIntegrationTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "dataguard.persistence.SerializationCompatibilityTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "dataguard.service.ApplicationRestartIntegrationTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "dataguard.service.DatasetTaskIntegrationTest",
+      "tests": 13,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "pythonTests": {
+    "tests": 11,
+    "failures": 0
+  },
+  "runtime": {
+    "create": {
+      "phase": "create",
+      "sampleReport": {
+        "totalRecords": 40,
+        "validRecords": 29,
+        "invalidRecords": 11,
+        "totalIssues": 11,
+        "qualityScore": 72.5
+      },
+      "htmlVerified": true,
+      "invalidPathRejected": true,
+      "failedTaskQueryable": true,
+      "failedReportReturns409": true,
+      "checkedAt": "2026-11-06T11:12:50.233276+00:00"
+    },
+    "verify": {
+      "phase": "verify",
+      "reportPreserved": true,
+      "datasetPreserved": true,
+      "failedHistoryPreserved": true,
+      "storedFileReusable": true,
+      "checkedAt": "2026-11-06T11:12:52.213217+00:00"
+    },
+    "javaProcessChanged": true
+  },
+  "limitations": [
+    "Maven dependencies reused local cache; Docker build separately validated fresh Maven cache",
+    "No remote Actions or publication",
+    "Finite pattern checks do not replace owner privacy/license approval"
+  ]
+}

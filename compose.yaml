@@ -1,0 +1,77 @@
+name: dataguard
+
+services:
+  mysql:
+    image: mysql:8.4.13
+    environment:
+      MYSQL_DATABASE: dataguard
+      MYSQL_USER: ${DATAGUARD_DB_USERNAME:-dataguard}
+      MYSQL_PASSWORD: ${DATAGUARD_DB_PASSWORD:?Set DATAGUARD_DB_PASSWORD in your ignored .env file}
+      MYSQL_ROOT_PASSWORD: ${DATAGUARD_MYSQL_ROOT_PASSWORD:?Set a different DATAGUARD_MYSQL_ROOT_PASSWORD}
+    command:
+      - --innodb-buffer-pool-size=64M
+      - --max-connections=10
+      - --performance-schema=OFF
+      - --mysqlx=OFF
+    healthcheck:
+      test: ["CMD-SHELL", 'MYSQL_PWD="$${MYSQL_PASSWORD}" mysql --protocol=tcp -h127.0.0.1 -u"$${MYSQL_USER}" --database="$${MYSQL_DATABASE}" --batch --skip-column-names -e "SELECT 1" >/dev/null']
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 30s
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks: [backend]
+    mem_limit: 768m
+    cpus: 1.0
+    pids_limit: 128
+    security_opt: ["no-new-privileges:true"]
+    stop_grace_period: 30s
+    restart: "no"
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+
+  app:
+    image: dataguard:1.1.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: mysql
+      DATAGUARD_BIND_ADDRESS: 0.0.0.0
+      DATAGUARD_DB_URL: jdbc:mysql://mysql:3306/dataguard?connectionTimeZone=UTC&forceConnectionTimeZoneToSession=true&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&sslMode=DISABLED
+      DATAGUARD_DB_USERNAME: ${DATAGUARD_DB_USERNAME:-dataguard}
+      DATAGUARD_DB_PASSWORD: ${DATAGUARD_DB_PASSWORD:?Set DATAGUARD_DB_PASSWORD}
+    ports:
+      - "127.0.0.1:${DATAGUARD_HTTP_PORT:-8080}:8080"
+    volumes:
+      - upload-data:/app/var/uploads
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    networks: [frontend, backend]
+    read_only: true
+    user: "10001:10001"
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    mem_limit: 512m
+    cpus: 1.0
+    pids_limit: 256
+    stop_grace_period: 20s
+    restart: "no"
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+
+networks:
+  frontend: {}
+  backend:
+    internal: true
+
+# Named volumes persist across stop/down. This file never removes them automatically.
+volumes:
+  mysql-data:
+  upload-data:

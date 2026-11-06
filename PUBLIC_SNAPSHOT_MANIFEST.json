@@ -1,0 +1,464 @@
+{
+  "createdAt": "2026-11-06T11:15:12.024316+00:00",
+  "sourceRevision": "3250f9d1fdfadc1314ab8144c08cee81316add57",
+  "publishingAuthorized": false,
+  "licenseSelected": false,
+  "scope": "Allowlisted committed formal sources; no Git history, personal learning, IDE, runtime databases, credentials or local paths",
+  "files": [
+    {
+      "path": ".dockerignore",
+      "sha256": "16cd052a7c691addfd8005d65c479fcefb86e0142dbaee8f3a918ff2059a78fe",
+      "sourceBlob": "b50aaee9112250ef3f3a932659ac24fa170843db"
+    },
+    {
+      "path": ".github/dependabot.yml",
+      "sha256": "76ede5d1f646806f34702a84d39ac6026c655c2db2ab57ebb5ec9b99e1bf1548",
+      "sourceBlob": "08501d1783cef92cf603cb59695158fc3936748a"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "sha256": "e29bda83c2e5f34da697f8986cadb1e89d1ba47bf2472a13db4b4ef98b16deda",
+      "sourceBlob": "49a8bc462a005c313778c602eede6d8bd1cb0453"
+    },
+    {
+      "path": ".github/workflows/dependency-review.yml",
+      "sha256": "01d04c870159495c4c33941afc5223939efb3ac9d6ddedbce71eeada01648ba8",
+      "sourceBlob": "e8f8a35c60e7882f98d03fd57d1e8a814eaf6e98"
+    },
+    {
+      "path": ".mvn/jvm.config",
+      "sha256": "76e629479d60af9938cde9be01a6de74619c2ba48b54c22066137b368bb13d0d",
+      "sourceBlob": "4b8447838707b674fa6c0f0401b25cc902774c5d"
+    },
+    {
+      "path": ".mvn/wrapper/maven-wrapper.properties",
+      "sha256": "bb0b8f16b2661c3676ed5a6a15f5b11d864460c4e77cfb50c583f54708f944e7",
+      "sourceBlob": "222cba3baf6a117b18214a60ca06549a8a70544a"
+    },
+    {
+      "path": "Dockerfile",
+      "sha256": "42dc1bbec12fa03ac02d67b4ca4c2e2937d6fbfb877e82c19107aa4911dec8e7",
+      "sourceBlob": "eadf72eabb44653acef2bd17caf140f9b01be7e9"
+    },
+    {
+      "path": "compose.env.example",
+      "sha256": "47f5d629d82a1e55709e2e9a7989eaf596d978c63afbaf3b6b482f202cadc2fe",
+      "sourceBlob": "00ce94e2c2667438b5e12928bd226e2d22d396bd"
+    },
+    {
+      "path": "compose.yaml",
+      "sha256": "dc43cde6fb794d7ed1eb0193c1d0ec9be9e0aaadc53a75342be6af8fc4b3dcc6",
+      "sourceBlob": "80a5a4aeef0541619c59825cab436e5ba71343e6"
+    },
+    {
+      "path": "config/security-exceptions.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "sourceBlob": "fe51488c7066f6687ef680d6bfaa4f7768ef205c"
+    },
+    {
+      "path": "data/raw/orders.csv",
+      "sha256": "7ebbaa0f671496df9c30f2f9b8e1f5c2bbd4f00faa57ebeb8d6597724548c725",
+      "sourceBlob": "15e28bed6c63f48b81aa1eee0944fe8a889f4979"
+    },
+    {
+      "path": "docs/THIRD_PARTY_REVIEW.md",
+      "sha256": "feabb516137ccc81fd25c018afde46e038d0373078573137ca9671c7b9d4783e",
+      "sourceBlob": "bbd037ae11263196b67f0d02e7a125f27f9be042"
+    },
+    {
+      "path": "docs/evidence/boot4-release/dependencies.json",
+      "sha256": "ebfb7eb291fe37947b50a505d13a2068c8353e383705e0123513877f84aec645",
+      "sourceBlob": "c7f5a468875d9bab869df8bd7cb3cec75ba8ba24"
+    },
+    {
+      "path": "docs/evidence/boot4-release/docker.json",
+      "sha256": "841aa4da7eb13c0f970728413dacba964271e3fb81ef8931069703ba04e68e73",
+      "sourceBlob": "d42d1f35bd2d09adb5fc22cf0863e93ef2ab780d"
+    },
+    {
+      "path": "docs/evidence/boot4-release/legacy-compatibility.json",
+      "sha256": "c3022871ae0015498ff18680ade917642479904225243b2bbbd5f214e290eaac",
+      "sourceBlob": "bdb5c7a0012c4d11a3f264ae84980fbb99bf5cc6"
+    },
+    {
+      "path": "docs/evidence/boot4-release/mysql-restart.json",
+      "sha256": "bbdc4102201ce33c313cfae413843c8eb1a65c07ab8fee5dec9e3244dcc6e7af",
+      "sourceBlob": "210e07e466294ef87d5cf5583e7de34d909826ac"
+    },
+    {
+      "path": "docs/evidence/boot4-release/public-candidate.json",
+      "sha256": "0f30fd8fa96f4200f072acbb092d4005e10326369859aa5a56870b0e8c021f94",
+      "sourceBlob": "c2049f0ae232c2e8a70c5842119751e1ffef53a1"
+    },
+    {
+      "path": "docs/evidence/boot4-release/tests.json",
+      "sha256": "3e5c0173199303602e138e63243922b659d0d208de204483ad738d10436589f0",
+      "sourceBlob": "a3b23c214541f454356d0783691420d0b80ebd51"
+    },
+    {
+      "path": "docs/API.md",
+      "sha256": "b032d12f9ddf8bae77a6161441678226307b54cbbf826b15409da7cf4a5b5074",
+      "sourceBlob": "5011b7dca19917428765d5a86ed32fd189ad9933"
+    },
+    {
+      "path": "docs/architecture.md",
+      "sha256": "fd7537457c38982e13bd5a91d7b04d9f84d371cef9daf8320752ea9b7027c638",
+      "sourceBlob": "7c5a2471ef8741de88a4a63f3fe1a2a57cf311c1"
+    },
+    {
+      "path": "data/README.md",
+      "sha256": "a04ee3195b57793770c15b490d113de5e513fa7dbd651f9fbf1a2db159541818",
+      "sourceBlob": "bdc138ca4ee8d94d599ccc4311379e766230c32b"
+    },
+    {
+      "path": "docs/DEMO.md",
+      "sha256": "ef4789392ac574586435558e02a54205b4efae49dc516822888c45414761e856",
+      "sourceBlob": "d252e551af81a23b5f22a3eab7b111d5923efa39"
+    },
+    {
+      "path": "README.md",
+      "sha256": "2ffe07749bb55d99845dd0802b45d0a67e0091938c049662370f022e6ca64c57",
+      "sourceBlob": "afb7844a239544e5cecd0cad610367730e519a8c"
+    },
+    {
+      "path": "SECURITY.md",
+      "sha256": "4ade2eadbd1ad69fd9cf2d9f025c3d321f44f1e767ea175a4583718f2451595e",
+      "sourceBlob": "f828414cd67aee5f6fd1ed79a2e9710c33f7c447"
+    },
+    {
+      "path": "docs/VALIDATION.md",
+      "sha256": "9923c5f413b4a984e2137a760e39bc12ce63c69d8b2dceec9ad9c8dc0c02c7e4",
+      "sourceBlob": "671b974e42c9b2a9b7c41e9cd7c4de21a707ca13"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "16d7e21ac2de323ad8b48f30df2d763166ab6a8099076fb7ab4c51e204a39ceb",
+      "sourceBlob": "47994d05c0170c5855e1d50c3600a9b85c69267e"
+    },
+    {
+      "path": "mvnw",
+      "sha256": "cae96cef89ebea3531221f4ae17c23cf8edf67d00eae8306d4186ae1bbed4d02",
+      "sourceBlob": "bd8896bf2217b46faa0291585e01ac1a3441a958"
+    },
+    {
+      "path": "pom.xml",
+      "sha256": "506267c40ec43b580d7db1a1123a85affbbd7ce68d06dcdba6b2a8f203e7b891",
+      "sourceBlob": "47417862d46f8d2e456b2618eff664785702f11c"
+    },
+    {
+      "path": "scripts/benchmark-db.py",
+      "sha256": "6fec830da66f8db3aaadce6e1aebfbc676e15d10ce45593998d22276368cdbd1",
+      "sourceBlob": "7f58ca96576be90780e0f408c0fbf9effd6e0e7f"
+    },
+    {
+      "path": "scripts/benchmark.py",
+      "sha256": "005d9e1da6a7f22aa992c401415bb734b858cf6d5dce3e67d63417f9f662cfab",
+      "sourceBlob": "28993de4577a17287e9059e1f6b13a8ac9fb81f3"
+    },
+    {
+      "path": "scripts/benchmark.sh",
+      "sha256": "362d007c7351272e19a7d673e31780b7da38b97a0b69bf923853f63a267163a5",
+      "sourceBlob": "a182c18d3e2c4b941dceac2b00fdbc0cc5b16233"
+    },
+    {
+      "path": "scripts/benchmark_generator_test.py",
+      "sha256": "e3093c346cc91359aa47c858e8c30bc98da49622eb1f1821e6b54eb6c46d5f92",
+      "sourceBlob": "ed21ad5f1137ce290f5408b8d2fa0e59c924a648"
+    },
+    {
+      "path": "scripts/check-security.py",
+      "sha256": "e65a305a12e9e2d2d4a2dfb45bcaf1bc02f11e7cef1e199c261373c1c459a525",
+      "sourceBlob": "53d54e3ccf321832d4c0e8932348bfe474c91a85"
+    },
+    {
+      "path": "scripts/demo-check.py",
+      "sha256": "4ae59905fa7dca249f7ce6ae008fd691ed9d59dea54aceac6b46505dbea73a34",
+      "sourceBlob": "c51435554af1d3454631a146dbb0ae7cc4227618"
+    },
+    {
+      "path": "scripts/dependency-audit.py",
+      "sha256": "ec70dd47af15a36ffff00bc60f956fbcf305f679a80e5f2a51e15f1ffeceacd2",
+      "sourceBlob": "ede3ddef2d7e6f7655bf5d80bc0a337f7aa41e40"
+    },
+    {
+      "path": "scripts/dependency_audit_test.py",
+      "sha256": "7a66ee0a5fd3ebfff4c17a619d9a26723b5aef11c989bf98d25e1091f47d3c9d",
+      "sourceBlob": "a123432b557894c60aa4d2850abe014f791e7723"
+    },
+    {
+      "path": "scripts/generate_orders.py",
+      "sha256": "e5272a862a9006458f67161668920c41238283b0708352657dc2756deab23eb9",
+      "sourceBlob": "cdd89c338721fcb76920afa1040216deb0a6a933"
+    },
+    {
+      "path": "scripts/mvn.sh",
+      "sha256": "9149aa8a335ec1bcafa081ed266f6f408dad369e7aa3b1db76227c06bdac7a44",
+      "sourceBlob": "1f960adf1546236a5437df87092f6593cb0a8066"
+    },
+    {
+      "path": "scripts/run.sh",
+      "sha256": "858dd940791c1f6a722a0160b714a5e7563654a79516163add8919cb1a881d6d",
+      "sourceBlob": "9e1fada99d5311943cc314c2db9b06fefcc2e916"
+    },
+    {
+      "path": "src/main/java/dataguard/Main.java",
+      "sha256": "6b4c58222f6904376f74f8b63ee03570649673f017f1a5dc289d0396bcbc0865",
+      "sourceBlob": "a4af1cfc13ee7f35e26bf1baa9a8e4281ed26ab6"
+    },
+    {
+      "path": "src/main/java/dataguard/api/ApiError.java",
+      "sha256": "ed4dd4dde5ac43ac1f6078e1d980184d4f021bec09628625cf9635884e3a47ba",
+      "sourceBlob": "c37a0fcf0dec4a730b8929971e9b890b619292d6"
+    },
+    {
+      "path": "src/main/java/dataguard/api/ApiExceptionHandler.java",
+      "sha256": "0f5053842e6a2675c7740cd724d7c4e7a39f28fad52eca6d421833bee74f6c01",
+      "sourceBlob": "720ffb37b2e0f27b7eba64f9a1d98bde90c5ae5d"
+    },
+    {
+      "path": "src/main/java/dataguard/api/CreateTaskRequest.java",
+      "sha256": "5fb77e4893bf5b81434adb561134d67124cb2c54472b6730147052e47d4b1ae5",
+      "sourceBlob": "a7c676936b825badbb5dddb54d2b22e60d6022b5"
+    },
+    {
+      "path": "src/main/java/dataguard/api/DataGuardController.java",
+      "sha256": "291140d030b5e17feb10770b3b392a55b56e39d885125937cb705a9e1f72e4c5",
+      "sourceBlob": "ccc8f0c7189e74544ad718a62938fc1d372d809d"
+    },
+    {
+      "path": "src/main/java/dataguard/api/ImportDatasetRequest.java",
+      "sha256": "d3784f63177ea99e03c8989748756164f71f7a70c23eb8702f9be97d5d90edc7",
+      "sourceBlob": "68f53f75f1dbc730646b88ed4be0bf7bcd0fb3fd"
+    },
+    {
+      "path": "src/main/java/dataguard/api/LocalRequestFilter.java",
+      "sha256": "c628c7f40f79db149f1be9f09ad0aeb8f83660757a6a8ae0ac900f83c02468d2",
+      "sourceBlob": "4ada5edef082bab5066a42f9f462d4037c75199d"
+    },
+    {
+      "path": "src/main/java/dataguard/cli/InspectionCli.java",
+      "sha256": "7f31f013e1904943bc1c18f4fa790345976cceb05481c87d8704c6b1d1072794",
+      "sourceBlob": "abc8deee1af45e0289d4ddff72de3d0218e58428"
+    },
+    {
+      "path": "src/main/java/dataguard/core/DataRecord.java",
+      "sha256": "8f0eeba2572d2f78caca0128675b28200a98df323634585c67e6622612d2e779",
+      "sourceBlob": "9ce8d021f644322c04d72b68b1c1a3229c98cd37"
+    },
+    {
+      "path": "src/main/java/dataguard/core/DateValidityRule.java",
+      "sha256": "435cd5d4fb1f5a3b3943404bb2fef565728a897ba528b7d8984d2e2f591b8fd5",
+      "sourceBlob": "7b6346a6f5b841dfb7be2e643ebcd7c328d49dfe"
+    },
+    {
+      "path": "src/main/java/dataguard/core/DuplicateOrderRule.java",
+      "sha256": "a617b9d9b5aa9cda255018bdaca8bb2c97a4d05348e3c3a3b49566b33678280e",
+      "sourceBlob": "a473e0721facda788cbef26190d72a7ca77ac792"
+    },
+    {
+      "path": "src/main/java/dataguard/core/FieldTypeRule.java",
+      "sha256": "c988db0a1652d212256a0887531a662c0fc2c2a0c5d8189e72e7b00459d9c351",
+      "sourceBlob": "078964bc90ef7c10ba0699c17e44e0e009608e1c"
+    },
+    {
+      "path": "src/main/java/dataguard/core/InspectionException.java",
+      "sha256": "808008ffc313051fd4aadbc026ba4791e72ebdfde125f18bdf5b30c1695943f1",
+      "sourceBlob": "5da5a19a7cc4271a3ae8600cf5029a0ccd9584a7"
+    },
+    {
+      "path": "src/main/java/dataguard/core/NumericRangeRule.java",
+      "sha256": "7986995ff17a5045f19293f5eebeec6f4e42853b2a3e74cd3bc845672e0647d4",
+      "sourceBlob": "b53b460b1ba1aefdd76b7b7d16dc21388fd6a53a"
+    },
+    {
+      "path": "src/main/java/dataguard/core/NumericValues.java",
+      "sha256": "659e03d49cfa42451d85fbd95f6b0027afe56c3048592f440a8b0bed651c0d40",
+      "sourceBlob": "11b1a389e5a3617681619e8b6ba9f4061340db2e"
+    },
+    {
+      "path": "src/main/java/dataguard/core/QualityEngine.java",
+      "sha256": "daed6525b7a42a40fdf13c4d28dc41be0062b41059b18b6d2047e349348a9320",
+      "sourceBlob": "6193b9e2268e5d207aaa89182ec90628f062dc03"
+    },
+    {
+      "path": "src/main/java/dataguard/core/QualityIssue.java",
+      "sha256": "89344f2ad486cbd3caf1699cd4c635c9024d98a9248284c68a9e68da3953036e",
+      "sourceBlob": "21a7bb9623a512c7da94580d969a7e434cf045f4"
+    },
+    {
+      "path": "src/main/java/dataguard/core/QualityReport.java",
+      "sha256": "6dc0b68792549f01d590059b0623793b187947ec862882f1d10126ff059ec637",
+      "sourceBlob": "85ee1f7395d921a570f32f6e850a515fe77ca917"
+    },
+    {
+      "path": "src/main/java/dataguard/core/QualityRule.java",
+      "sha256": "f2a92c049e5283e625fe6cde36d1bc0bc66000aa9900e4190cde72240e83fd97",
+      "sourceBlob": "7d975a1a50959ee97df92ec758cf4041bad6b4f8"
+    },
+    {
+      "path": "src/main/java/dataguard/core/ReportRenderer.java",
+      "sha256": "2199ab5108cbb9edf6db7a26d1222e273e8488844f4c1875c4f22accd3a7fca6",
+      "sourceBlob": "938f056de321f276ddf1a33d68b70b461930c479"
+    },
+    {
+      "path": "src/main/java/dataguard/core/RequiredFieldRule.java",
+      "sha256": "14753ecba006be884270804979e5471ba9cfb42fc2697852d72c0c70fb2cd312",
+      "sourceBlob": "05cd0890b7bd5c3bf9d8077631a25ab0e062a0b4"
+    },
+    {
+      "path": "src/main/java/dataguard/core/Severity.java",
+      "sha256": "b83e206af9b73eef5e3d31dad21fdc2e48323f3cf437c2629b4577226cbe91b7",
+      "sourceBlob": "e17ca773b4b0228c964dfb6faff15815626ab03b"
+    },
+    {
+      "path": "src/main/java/dataguard/core/StatusRule.java",
+      "sha256": "bf6f8d25c9623cdc4fb6370306451fbcc42cbfa9991c3b6fe1568847d6572cec",
+      "sourceBlob": "7a6b9ba0d14e0637eec90a8125801e14bc45b09f"
+    },
+    {
+      "path": "src/main/java/dataguard/core/TotalAmountRule.java",
+      "sha256": "233d8047e78b9a135bc01e4861d9991de47d9f0e52e7a040782008cdee83ce76",
+      "sourceBlob": "23c6293ddc4bdba1627e23eba43c2d7643829ebd"
+    },
+    {
+      "path": "src/main/java/dataguard/persistence/InspectionRepository.java",
+      "sha256": "d260766fe401cdbaedfaf1383642a50a2c13c68f8bf51d379445146857881656",
+      "sourceBlob": "4656b7c06eeab9cab0c8af8540f1c19cad9052a7"
+    },
+    {
+      "path": "src/main/java/dataguard/persistence/StoredDataset.java",
+      "sha256": "b5f847d25d561e76e69f1c5b9dc13271126b0879759efd3c730b56f199c65a54",
+      "sourceBlob": "076a56e9eb97596fbfde370dfd3834c0be97e5be"
+    },
+    {
+      "path": "src/main/java/dataguard/service/DatasetInfo.java",
+      "sha256": "fa3991d34b30b85ecb09afd6244928c8f6324ff11147b93154162f71d9d33fbd",
+      "sourceBlob": "736d1618db1f007dc2a37ea67e2aa0a7a1b0db9d"
+    },
+    {
+      "path": "src/main/java/dataguard/service/DatasetService.java",
+      "sha256": "c08a7cefe4490a3dce46077c2edc9c78d64d4c82e3534b3352c899bbdeacd0d8",
+      "sourceBlob": "1cfe48b0eb65e5599134828c0cf9015fce6ba27c"
+    },
+    {
+      "path": "src/main/java/dataguard/service/FileStorage.java",
+      "sha256": "1c836175c5345138792773861b8843b51b2006694a8812e27c2fe3bb8839f36c",
+      "sourceBlob": "3feecc2a6167d7fa506399241c5906da57d67337"
+    },
+    {
+      "path": "src/main/java/dataguard/service/ServiceException.java",
+      "sha256": "c8dae84ac14fe89bedd2f3bc383bc96fb25ce40842f419fabe5698c76020d0ff",
+      "sourceBlob": "3d767d2b63e2191605523843e8bb477fc0c47fbf"
+    },
+    {
+      "path": "src/main/java/dataguard/service/TaskInfo.java",
+      "sha256": "d258f3959cf3a545d334892a49f5d2aa3438f1f7c58fbd0db0c45b4e4538e9c8",
+      "sourceBlob": "b99d6fe7670d2bb87651febfc10e65502507f169"
+    },
+    {
+      "path": "src/main/java/dataguard/service/TaskService.java",
+      "sha256": "4f8e2d66a3571b207c8d0709554d834c51b9a6ea917af520277cb9200194db11",
+      "sourceBlob": "e7b5578d01e5effc6d9e6855860901f2ff45551a"
+    },
+    {
+      "path": "src/main/java/dataguard/service/TaskStatus.java",
+      "sha256": "99437e8125c6bbee010592ae0f73ba4e34df638e6a9fd09b45b617b74abcc9c5",
+      "sourceBlob": "43b8a00752f8ba31dd31f64dd9a13e9e61cda3d4"
+    },
+    {
+      "path": "src/main/resources/application-mysql.properties",
+      "sha256": "934083d7275c019c77ce8a8bb2448ff048babe9e57378deb3e9cf030f7c94e57",
+      "sourceBlob": "095c8a7a0e740c6be2456b0514eaf92801e87ddf"
+    },
+    {
+      "path": "src/main/resources/application.properties",
+      "sha256": "de804726dd70b2fb599f9ea985653d46af8c3dded220e5c5fca6ade9fba47265",
+      "sourceBlob": "d7b0a80708b4157072c524cd6cbd7c75c36e6e59"
+    },
+    {
+      "path": "src/main/resources/schema-h2.sql",
+      "sha256": "3226ce4567bac881ce0b53dbf5a5afc9cd3ffeca633f96cc1a6cf1b913cef700",
+      "sourceBlob": "f338c88769db2cefeabf4e2c6284a1256c0706d5"
+    },
+    {
+      "path": "src/main/resources/schema-mysql.sql",
+      "sha256": "4c8ffd0cc2b13e1caeb3b87427be2247207b22b5e880f1591b7bddf03641244b",
+      "sourceBlob": "5323802ba028abcffb589ddfb9d0637a9a7b8e54"
+    },
+    {
+      "path": "src/main/resources/static/app.css",
+      "sha256": "34afb14ea9c660020fe30966211fd4a3429f2d319d9d9405de46c99c22d39b77",
+      "sourceBlob": "2d21f4228de881c16086b9ef834b75eb88145cc6"
+    },
+    {
+      "path": "src/main/resources/static/app.js",
+      "sha256": "97370cb88fdd52e7980c05abe65099f248cda55c819ad73ca066386532c5ba92",
+      "sourceBlob": "fb8816d6e346cddbd0411f3207a14b68381c7085"
+    },
+    {
+      "path": "src/main/resources/static/index.html",
+      "sha256": "2c1ea138596b7f218271f575f258476bdb2753823280317d6405d9597bd095a8",
+      "sourceBlob": "9c9c0576c31e4e9afc7da29fcc17fcbe6c71a857"
+    },
+    {
+      "path": "src/test/java/dataguard/api/ApiIntegrationTest.java",
+      "sha256": "404ad2d649a74a1c4f95f027a2c7d1ec1c1b87c1279a38f246798c610a42a255",
+      "sourceBlob": "624f9b12951c9d514c2ef202846ff6963a0b2bf4"
+    },
+    {
+      "path": "src/test/java/dataguard/benchmark/EngineBenchmarkHarness.java",
+      "sha256": "a435e39a6c566579d76b62d65bfc9873afa6e71edfce2f9699c8af5ac1ed3c75",
+      "sourceBlob": "b661ac37257ec44e098b7b19b8d0d69b25c2e5e1"
+    },
+    {
+      "path": "src/test/java/dataguard/benchmark/PersistenceBenchmark.java",
+      "sha256": "d796a49c9f4f991f667e16df7b3822bd28f6d7fbd7b097dbcdb7d4b2871e678f",
+      "sourceBlob": "b0edd9b04917ee2b1fbd0c1220f5cb4ddb18746e"
+    },
+    {
+      "path": "src/test/java/dataguard/cli/InspectionCliTest.java",
+      "sha256": "847f6e9f8d120c5e1848d3610e9cd895d722e6c86db4f865bb3e1699f7c6669a",
+      "sourceBlob": "0e3b2c1bdb1421fe88a8b8988a348e59df36502c"
+    },
+    {
+      "path": "src/test/java/dataguard/core/QualityEngineTest.java",
+      "sha256": "19086afffae52dbaf91199f0164c3f7e31c57fe8190dfe5a44f9d4b1d0bfdc2e",
+      "sourceBlob": "04d1e43fc1285ba295a173a74c6ae79268bb9721"
+    },
+    {
+      "path": "src/test/java/dataguard/core/ReportRendererTest.java",
+      "sha256": "e8fb3922f280d9d0d572be404fb6f92e3dcfcca065fe18688368ad916512a346",
+      "sourceBlob": "73c2026168935095168af9615328cb5ea834eca0"
+    },
+    {
+      "path": "src/test/java/dataguard/persistence/InspectionRepositoryTest.java",
+      "sha256": "4bb23a76f83ab8de9cec1082376947e2d40d69b6a6236d73531f46e1a1f5c296",
+      "sourceBlob": "8fac2e0935b1134a2f28b671f9b1fcd5a0df9656"
+    },
+    {
+      "path": "src/test/java/dataguard/persistence/MySqlIntegrationTest.java",
+      "sha256": "bce7fe065cc03166d9e2c81b16e64ac36f295dd004ef449fabad61fac34694a2",
+      "sourceBlob": "305add9b85807264a42f0d12d445c98203b55f48"
+    },
+    {
+      "path": "src/test/java/dataguard/persistence/SerializationCompatibilityTest.java",
+      "sha256": "0539b76c5bea9e7a4222535c545e2836249080e6cdc734d45645a41f2fe66a95",
+      "sourceBlob": "60583e637b6796c9e30b52994583e62fbd21c2ec"
+    },
+    {
+      "path": "src/test/java/dataguard/service/ApplicationRestartIntegrationTest.java",
+      "sha256": "24448d2cb87ec00ff1d46e763c4974257b25fe843e05e33410c27c5fc9107082",
+      "sourceBlob": "6162d8bd82d7a2614e93f76201193b9d968cf8e8"
+    },
+    {
+      "path": "src/test/java/dataguard/service/DatasetTaskIntegrationTest.java",
+      "sha256": "46c4516f3df47aa6131d88e88559ecf6c0d0e4e6bee6831d0874bd7d3f179d8f",
+      "sourceBlob": "db2d4c70c741fa96ac8e01dafe5a239cc98fc084"
+    },
+    {
+      "path": "src/test/resources/fixtures/boot35-report.json",
+      "sha256": "9ac2b26c63c287ed0b5602b61cff88568af61185eb68e7af2b215c8712fd4e6a",
+      "sourceBlob": "61aa5736eec419ab21623985f57693b3967a7454"
+    }
+  ]
+}

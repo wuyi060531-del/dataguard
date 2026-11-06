@@ -1,0 +1,16 @@
+# Allow only the formal build inputs. Personal data, Git, history and learning stay outside.
+**
+!Dockerfile
+!.dockerignore
+!pom.xml
+!mvnw
+!.mvn/
+!.mvn/wrapper/
+!.mvn/wrapper/maven-wrapper.properties
+!.mvn/jvm.config
+!src/
+!src/main/
+!src/main/**
+!data/
+!data/raw/
+!data/raw/orders.csv

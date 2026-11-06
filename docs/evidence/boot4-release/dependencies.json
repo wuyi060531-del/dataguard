@@ -1,0 +1,9 @@
+{
+  "checkedAt": "2026-11-06T10:58:16.015995+00:00",
+  "source": "https://api.osv.dev/v1/querybatch",
+  "queriedComponents": 96,
+  "coverage": "Resolved Maven dependencies, including test scope; excludes build plugins and container OS",
+  "unreviewedFindings": [],
+  "documentedExceptions": [],
+  "status": "reviewed"
+}

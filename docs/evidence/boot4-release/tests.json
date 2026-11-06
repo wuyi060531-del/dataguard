@@ -1,0 +1,88 @@
+{
+  "java": "21.0.13",
+  "maven": "3.9.11",
+  "springBoot": "4.1.2",
+  "mysql": "8.4.11",
+  "command": "bash scripts/mvn.sh -B -ntp clean verify dependency:list (isolated MySQL test environment supplied)",
+  "suites": [
+    {
+      "suite": "dataguard.api.ApiIntegrationTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 1.767
+    },
+    {
+      "suite": "dataguard.cli.InspectionCliTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.182
+    },
+    {
+      "suite": "dataguard.core.QualityEngineTest",
+      "tests": 56,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.481
+    },
+    {
+      "suite": "dataguard.core.ReportRendererTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.004
+    },
+    {
+      "suite": "dataguard.persistence.InspectionRepositoryTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.298
+    },
+    {
+      "suite": "dataguard.persistence.MySqlIntegrationTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 1.741
+    },
+    {
+      "suite": "dataguard.persistence.SerializationCompatibilityTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.015
+    },
+    {
+      "suite": "dataguard.service.ApplicationRestartIntegrationTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.522
+    },
+    {
+      "suite": "dataguard.service.DatasetTaskIntegrationTest",
+      "tests": 13,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 1.207
+    }
+  ],
+  "totals": {
+    "tests": 94,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "mavenSeconds": 11.068
+}

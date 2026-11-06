@@ -1,0 +1,115 @@
+name: Java 21 and MySQL verification
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dataguard-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    services:
+      mysql:
+        image: mysql:8.4.13
+        env:
+          MYSQL_DATABASE: dataguard_test
+          MYSQL_USER: dataguard_test
+          # Throwaway credentials derived from this isolated run; no repository secret required.
+          MYSQL_PASSWORD: ${{ github.run_id }}-${{ github.run_attempt }}-app
+          MYSQL_ROOT_PASSWORD: ${{ github.run_id }}-${{ github.run_attempt }}-root
+        ports:
+          - 3306/tcp
+        options: >-
+          --health-cmd="mysqladmin --protocol=tcp -h127.0.0.1 ping --silent"
+          --health-interval=5s --health-timeout=3s --health-retries=30
+          --memory=768m --cpus=1 --pids-limit=256
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+        with:
+          distribution: temurin
+          java-version: '21.0.13+9'
+          cache: maven
+          cache-dependency-path: pom.xml
+      - name: Offline repository security guard
+        run: |
+          python3 scripts/check-security.py --self-test
+          python3 scripts/check-security.py
+          python3 -m unittest discover -s scripts -p '*_test.py'
+      - name: Formal tests including actual MySQL
+        env:
+          DATAGUARD_MYSQL_TEST_URL: jdbc:mysql://127.0.0.1:${{ job.services.mysql.ports['3306'] }}/dataguard_test?connectionTimeZone=UTC&forceConnectionTimeZoneToSession=true&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&sslMode=DISABLED&rewriteBatchedStatements=true
+          DATAGUARD_MYSQL_TEST_USERNAME: dataguard_test
+          DATAGUARD_MYSQL_TEST_PASSWORD: ${{ github.run_id }}-${{ github.run_attempt }}-app
+        run: bash scripts/mvn.sh -B -ntp clean verify
+      - name: Audit the full resolved Maven dependency graph
+        run: |
+          bash scripts/mvn.sh -B -ntp dependency:list -DoutputFile=target/dependencies.txt
+          python3 scripts/dependency-audit.py --dependencies target/dependencies.txt --output target/dependency-audit.json
+      - name: Require MySQL evidence, never silently skip
+        if: always()
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+          report = Path('target/surefire-reports/TEST-dataguard.persistence.MySqlIntegrationTest.xml')
+          if not report.is_file():
+              raise SystemExit('Missing actual MySQL test report')
+          result = ET.parse(report).getroot().attrib
+          if int(result['tests']) < 6 or any(int(result.get(k, 0)) != 0 for k in ['failures', 'errors', 'skipped']):
+              raise SystemExit('MySQL integration must execute successfully with zero skipped tests')
+          print('Actual MySQL integration executed without skips.')
+          PY
+      - name: Upload test evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: formal-test-results
+          path: |
+            target/surefire-reports/
+            target/dependency-audit.json
+          if-no-files-found: error
+          retention-days: 7
+
+  container-smoke:
+    needs: verify
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Prepare per-run synthetic database credentials
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import os, secrets
+          target = Path(os.environ['RUNNER_TEMP']) / 'dataguard-compose.env'
+          target.write_text('DATAGUARD_DB_USERNAME=dataguard\n'
+                            + 'DATAGUARD_DB_PASSWORD=' + secrets.token_urlsafe(32) + '\n'
+                            + 'DATAGUARD_MYSQL_ROOT_PASSWORD=' + secrets.token_urlsafe(32) + '\n')
+          target.chmod(0o600)
+          PY
+      - name: Build and wait for isolated services
+        run: docker compose --env-file "$RUNNER_TEMP/dataguard-compose.env" -p dataguard-ci up --build --wait --wait-timeout 180
+      - name: Verify sample, failure history and reports via container HTTP
+        run: python3 scripts/demo-check.py create --state "$RUNNER_TEMP/dataguard-demo.json"
+      - name: Restart services without removing volumes
+        run: |
+          docker compose --env-file "$RUNNER_TEMP/dataguard-compose.env" -p dataguard-ci stop app mysql
+          docker compose --env-file "$RUNNER_TEMP/dataguard-compose.env" -p dataguard-ci up -d --wait --wait-timeout 180
+      - name: Verify saved reports and files after restart
+        run: python3 scripts/demo-check.py verify --state "$RUNNER_TEMP/dataguard-demo.json"
+      - name: Stop only this job's services; preserve named volumes
+        if: always()
+        run: docker compose --env-file "$RUNNER_TEMP/dataguard-compose.env" -p dataguard-ci down

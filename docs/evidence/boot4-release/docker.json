@@ -1,0 +1,64 @@
+{
+  "dockerVersion": "29.8.2",
+  "composeVersion": "5.5.0",
+  "project": "dataguard-boot4-release",
+  "mysqlImage": "mysql:8.4.13",
+  "appMemoryLimitMiB": 512,
+  "mysqlMemoryLimitMiB": 768,
+  "buildExecuted": true,
+  "wrapperZipChecksumEnforced": true,
+  "healthBefore": "healthy",
+  "create": {
+    "phase": "create",
+    "sampleReport": {
+      "totalRecords": 40,
+      "validRecords": 29,
+      "invalidRecords": 11,
+      "totalIssues": 11,
+      "qualityScore": 72.5
+    },
+    "htmlVerified": true,
+    "invalidPathRejected": true,
+    "failedTaskQueryable": true,
+    "failedReportReturns409": true,
+    "checkedAt": "2026-11-06T11:06:49.796959+00:00"
+  },
+  "afterRestart": {
+    "phase": "verify",
+    "reportPreserved": true,
+    "datasetPreserved": true,
+    "failedHistoryPreserved": true,
+    "storedFileReusable": true,
+    "checkedAt": "2026-11-06T11:07:08.838652+00:00"
+  },
+  "healthWithoutDatabase": "unhealthy",
+  "unhealthyAfterSeconds": 68.8,
+  "statusWithoutDatabase": 503,
+  "healthRecovered": "healthy",
+  "afterDatabaseRecovery": {
+    "phase": "verify",
+    "reportPreserved": true,
+    "datasetPreserved": true,
+    "failedHistoryPreserved": true,
+    "storedFileReusable": true,
+    "checkedAt": "2026-11-06T11:09:09.482803+00:00"
+  },
+  "resourceSnapshot": [
+    "dataguard-boot4-release-app-1 154.6MiB / 512MiB",
+    "dataguard-boot4-release-mysql-1 198MiB / 768MiB"
+  ],
+  "images": {
+    "eclipse-temurin:21.0.13_9-jdk-noble": [
+      "eclipse-temurin@sha256:114cabb73033ca4ce7ceec3deb62396bc1b716282bae051ed3c1d82e38fcab2d"
+    ],
+    "eclipse-temurin:21.0.13_9-jre-noble": [
+      "eclipse-temurin@sha256:0eda5830ed7b669abc246a8dc520ea8a23cab06f9a8d4b6964109e2f2394e46f"
+    ],
+    "mysql:8.4.13": [
+      "mysql@sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902"
+    ]
+  },
+  "appImageId": "sha256:e930931d4342cf76b651ccdb01858880a9e244b19e9f458d3a03e32043d04085",
+  "volumesPreserved": true,
+  "checkedAt": "2026-11-06T11:09:12Z"
+}

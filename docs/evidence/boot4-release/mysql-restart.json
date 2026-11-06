@@ -1,0 +1,20 @@
+{
+  "mysqlVersion": "8.4.11",
+  "mysqlPidBefore": 89049,
+  "mysqlPidAfter": 1236,
+  "javaPidBefore": 1228,
+  "javaPidAfter": 1244,
+  "report": {
+    "totalRecords": 40,
+    "validRecords": 29,
+    "invalidRecords": 11,
+    "totalIssues": 11,
+    "qualityScore": 72.5
+  },
+  "reportPreserved": true,
+  "datasetPreserved": true,
+  "storedFileReusable": true,
+  "interruptedTaskRecovered": true,
+  "htmlVerified": true,
+  "completedAt": "2026-11-06T10:58:48Z"
+}

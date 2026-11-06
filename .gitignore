@@ -1,0 +1,16 @@
+target/
+.setup/
+var/
+reports/
+.env
+.env.*
+!compose.env.example
+.idea/
+*.iml
+*.class
+*.log
+*.mv.db
+*.trace.db
+__pycache__/
+*.py[cod]
+.DS_Store

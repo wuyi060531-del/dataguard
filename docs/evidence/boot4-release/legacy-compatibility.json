@@ -1,0 +1,10 @@
+{
+  "source": "Actual Boot 3.5.16/Jackson 2 report saved to isolated H2 2.3.232; copied database and uploads opened by Boot 4.1.2/H2 2.5.250",
+  "originalDatabaseUnchanged": true,
+  "phase": "verify",
+  "reportPreserved": true,
+  "datasetPreserved": true,
+  "failedHistoryPreserved": true,
+  "storedFileReusable": true,
+  "checkedAt": "2026-11-06T10:58:22.978012+00:00"
+}
