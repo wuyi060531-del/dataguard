@@ -1,8 +1,13 @@
-# 第三方依赖与许可证待决策
+# 第三方依赖与许可证
 
-Boot 4 迁移后实际解析 96 个 Maven 依赖，以下读取对应缓存 POM（必要时沿 parent）和 JAR 声明，含测试依赖。未替所有者选择 LICENSE，不构成许可证兼容性结论。
+Boot 4 迁移后实际解析出 96 个 Maven 依赖（含测试依赖）。下表读取自对应的 POM（必要时沿用 parent）和 JAR 里的声明。本表不覆盖构建插件和基础镜像，也不是许可证兼容性的结论。
 
-MySQL Connector/J 声明 GPLv2 + Universal FOSS Exception；H2 声明 MPL/EPL 双许可。源码公开前需决定主许可并核对上游原文；二进制/JRE/镜像分发另需对应 NOTICE 与系统声明。本表不覆盖构建插件及基础镜像。
+需要注意的两处：
+
+- **MySQL Connector/J** 声明为 GPLv2 加 Universal FOSS Exception。
+- **H2** 是 MPL/EPL 双许可。
+
+项目许可证还没有选定。选定前需要核对上游原文；如果将来分发二进制、JRE 或镜像，还要附上对应的 NOTICE 和系统组件声明。
 
 | Maven 坐标 | 版本 | POM 声明 | JAR 声明数量 |
 | --- | --- | --- | --- |
@@ -103,4 +108,6 @@ MySQL Connector/J 声明 GPLv2 + Universal FOSS Exception；H2 声明 MPL/EPL �
 | org.springframework.boot:spring-boot-http-client | 4.1.2 | [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0) | 2 |
 | org.springframework.boot:spring-boot-restclient-test | 4.1.2 | [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0) | 2 |
 
-主许可证可考虑 [MIT](https://opensource.org/license/mit)、[Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0)、[GPLv3](https://www.gnu.org/licenses/gpl-3.0.html)。这些是待所有者比较的选择，不表示都已与所有分发形式兼容。先核对 Connector/J 的 Universal FOSS Exception 及基础产物原文；本轮不代选、不发布。
+## 可选的主许可证
+
+可以在 [MIT](https://opensource.org/license/mit)、[Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0)、[GPLv3](https://www.gnu.org/licenses/gpl-3.0.html) 中选择。这几个都没有对所有分发形式逐一确认过兼容，选定之前需要先核对 Connector/J 的 Universal FOSS Exception 和各依赖的原文。

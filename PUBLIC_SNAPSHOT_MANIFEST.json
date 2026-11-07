@@ -62,8 +62,7 @@
     },
     {
       "path": "docs/THIRD_PARTY_REVIEW.md",
-      "sha256": "feabb516137ccc81fd25c018afde46e038d0373078573137ca9671c7b9d4783e",
-      "sourceBlob": "bbd037ae11263196b67f0d02e7a125f27f9be042"
+      "sha256": "f763ab3ee391feaebed4491c5b24634ebf6a19c15ec7c6f57a680e956ed88817"
     },
     {
       "path": "docs/evidence/boot4-release/dependencies.json",
@@ -177,8 +176,7 @@
     },
     {
       "path": "docs/frontend-stage1.md",
-      "sha256": "9164d19efcf257892de6ad15e8fbf99876b0a258ca76563c14bdfa3261aeaa92",
-      "sourceBlob": "ff418470fc760ba8f59c28ef758637361b3a8c95"
+      "sha256": "583fc6f0d7d47947422822aa21b1e185f4d4208ebad6ec9af2422a519d3b2628"
     },
     {
       "path": "docs/API.md",
@@ -187,33 +185,27 @@
     },
     {
       "path": "docs/architecture.md",
-      "sha256": "fd7537457c38982e13bd5a91d7b04d9f84d371cef9daf8320752ea9b7027c638",
-      "sourceBlob": "7c5a2471ef8741de88a4a63f3fe1a2a57cf311c1"
+      "sha256": "2f8512724c4b28c48f0b01ccfcb71dbf7ac445eda8a1efd330d9b6004dfbfc86"
     },
     {
       "path": "data/README.md",
-      "sha256": "a04ee3195b57793770c15b490d113de5e513fa7dbd651f9fbf1a2db159541818",
-      "sourceBlob": "bdc138ca4ee8d94d599ccc4311379e766230c32b"
+      "sha256": "a3b8356fcf6e2e7d8fd8525b63cba230928b862c8c8118321c5b0871d8569919"
     },
     {
       "path": "docs/DEMO.md",
-      "sha256": "ef4789392ac574586435558e02a54205b4efae49dc516822888c45414761e856",
-      "sourceBlob": "d252e551af81a23b5f22a3eab7b111d5923efa39"
+      "sha256": "bfe6cc9e1c75cec8e8e25e7f633eaf52ac6418b19173ddc75d8dd6570316e3f9"
     },
     {
       "path": "README.md",
-      "sha256": "c97ebc5dec85a53241b85ee975bbf69e94c9ef9384ca207f31c1a375d64e9972",
-      "sourceBlob": "32ec110450a114afdca88f54c9af525d8c345d66"
+      "sha256": "e0fbe551e100c3c66d354ec59211348df53dde91f31e8d12013d73f3bac3c27e"
     },
     {
       "path": "SECURITY.md",
-      "sha256": "4ade2eadbd1ad69fd9cf2d9f025c3d321f44f1e767ea175a4583718f2451595e",
-      "sourceBlob": "f828414cd67aee5f6fd1ed79a2e9710c33f7c447"
+      "sha256": "b9880d9978adbbecacfcbeea611d23358e383d8d711ca0ecb6ecbcea2770f50d"
     },
     {
       "path": "docs/VALIDATION.md",
-      "sha256": "9923c5f413b4a984e2137a760e39bc12ce63c69d8b2dceec9ad9c8dc0c02c7e4",
-      "sourceBlob": "671b974e42c9b2a9b7c41e9cd7c4de21a707ca13"
+      "sha256": "09821bb1d9a6a6f1005de06ef05a3377544f6f998818e080cca45c0020c7dbf0"
     },
     {
       "path": ".gitignore",
