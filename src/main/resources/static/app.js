@@ -31,8 +31,14 @@ function cell(row, value, label) {
 async function action(work) {
   if (busy) return;
   busy = true;
+  const trigger = document.activeElement;
   document.querySelectorAll('button, #dataset, #csv-file').forEach(control => { control.disabled = true; });
-  try { await work(); } catch (error) { message(error.message, true); }
+  try { await work(); } catch (error) {
+    message(error.message, true);
+    const focus = document.activeElement;
+    if (trigger?.matches('button, #dataset, #csv-file') && (focus === document.body || focus === trigger))
+      byId('message').focus({preventScroll: true});
+  }
   finally {
     busy = false;
     document.querySelectorAll('button, #dataset, #csv-file').forEach(control => { control.disabled = false; });

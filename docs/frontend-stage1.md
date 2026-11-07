@@ -1,6 +1,6 @@
 # 前端改版记录：浅色数据审查工作台
 
-这一轮只改了原生 HTML/CSS/JS 和独立 HTML 报告的展示，没有改 Controller、Service、Repository、规则、DTO、SQL 和评分公式。筛选、分页、失败反馈和下载交互还没有做。
+这一轮只改了原生 HTML/CSS/JS 和独立 HTML 报告的展示，没有改 Controller、Service、Repository、规则、DTO、SQL 和评分公式。筛选、分页、失败反馈和下载交互见文末的后续验收。
 
 ## 实际截图与测量
 
@@ -86,12 +86,22 @@ DATAGUARD_IMPORT_ROOT="$PWD/data/raw" PORT=18098 bash scripts/run.sh
 
 ## 截图与已知限制
 
-仓库里的 14 张 PNG 都来自隔离环境里的合成数据，逐张确认过文件名和内容，没有个人资料、凭据或数据库。图片需要人工看过，文本检查脚本扫不了图片里的隐私信息。
+本阶段的 14 张 PNG 都来自隔离环境里的合成数据，逐张确认过文件名和内容，没有个人资料、凭据或数据库。图片需要人工看过，文本检查脚本扫不了图片里的隐私信息。
 
 ## 问题清单的后续改动（筛选、分页、中文原因）
 
 在上面的改版之后，问题清单增加了：按严重程度、规则、字段筛选，每页 50 项的分页（不再只展示前 100 项），规则的中文名称和说明（英文原始原因保留在下方），失败信息出现在视口内并用 `role="alert"` 播报，断网时给出中文提示，忙碌时同时锁定数据集选择和文件输入，以及 JSON/HTML 报告的下载链接。后端接口、规则和评分都没有改。
 
-这部分是用一个只返回合成数据的桩 API 在 Chromium（Playwright）里验证的，不是完整的后端联调：150 项问题分 3 页，最后一项 SYN149 可以访问；规则筛选后 22 项，叠加“警告”筛选后无结果时给出提示，清除后恢复；断网时错误提示在视口内，按钮恢复可用；1366 宽和 390 宽都没有整体横向滚动，也没有未处理的 JS 异常。截图：[桌面](evidence/frontend-issues/desktop-findings.png) · [手机](evidence/frontend-issues/mobile-findings.png)。桩 API 没有放进仓库，前面的 `check-ui-stage1.py` 仍需连接真实服务。
+2026-11-07 在 macOS arm64 用 JDK 21、全新 H2 文件库、独立上传目录和回环端口 18098 启动真实后端。Chrome 156 使用临时浏览器配置。两张新截图来自这次运行，已替换此前的桩 API 截图。
 
-尚未做的：原始记录的展开查看。
+| 本机检查 | 结果 |
+| --- | --- |
+| `bash scripts/mvn.sh -o -B -ntp clean verify` | 96 项：90 通过，0 失败/错误，6 项 MySQL 测试跳过 |
+| `scripts/check-ui-stage1.py --phase after`（其余参数按上节传入） | 23 通过，0 失败/跳过；[脚本原始结果](evidence/frontend-issues/stage1-after-checks.json) |
+| 真实问题清单及停服检查 | 12 通过，0 失败/跳过；[测量与断言结果](evidence/frontend-issues/findings-checks.json) |
+
+通过网页操作上传合成 CSV（`POST /api/datasets`）、执行检测（`POST /api/tasks`），用真实报告接口逐项比对页面。输入含 121 行缺少状态列的订单、1 行金额警告和 1 行数量越界，后端返回 123 项问题。未筛选分页为 50 / 50 / 23；按严重程度、规则和字段筛选 CSV 列数问题后为 50 / 50 / 21，最后一条 `SYN-121` 可见。中文“CSV 列数不符”和接口原始英文原因同时显示；矛盾条件给出无结果提示。
+
+停止隔离后端后，用 Enter 激活“刷新”。错误提示在当前视口内，带 `role="alert"`，焦点落在提示上。修复前用鼠标触发时焦点回到页面主体；现在仅在焦点仍在触发控件或已丢到页面主体时移动焦点。1366×900 和 390×844 的整页宽度分别为 1366 / 1366 与 390 / 390（滚动宽度 / 视口宽度），无未处理 JS 异常。
+
+截图：[桌面](evidence/frontend-issues/desktop-findings.png) · [手机](evidence/frontend-issues/mobile-findings.png)。本轮没有重跑本机 MySQL、Docker 或真机浏览器；原始记录的展开查看仍未实现。
