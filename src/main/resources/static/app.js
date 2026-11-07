@@ -80,6 +80,7 @@ async function loadHistory(append = false) {
 }
 const PAGE_SIZE = 50;
 const RULES = {
+  CSV_STRUCTURE: ['CSV 列数不符', '该行的列数与表头不一致（应为 7 列），请检查空行或缺失、多出的单元格。'],
   REQUIRED_FIELD: ['必填字段为空', '必填字段不能为空。'],
   DUPLICATE_ORDER: ['订单编号重复', '订单编号在文件中出现多次，所有重复的行都会被标记。'],
   FIELD_TYPE: ['字段类型不符', '字段的类型或格式不符合要求（数量应为整数，单价应为十进制数）。'],
