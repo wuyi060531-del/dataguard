@@ -30,4 +30,4 @@ python3 scripts/check-security.py
 - 5 MiB / 10000 条记录的上限，以及字段、问题数、报告大小的预算，超限时整个任务失败，不会悄悄截断。
 - 运行用的数据库和上传目录要一起备份。
 
-仓库是用白名单从原工程导出的，没有带过去原来的历史，因为原历史里有私人学习资料和本机路径。项目的许可证和第三方依赖声明还没有最终确定，见 [THIRD_PARTY_REVIEW](docs/THIRD_PARTY_REVIEW.md)。验证细节见 [VALIDATION](docs/VALIDATION.md)。
+仓库是用白名单从原工程导出的，没有带过去原来的历史，因为原历史里有私人学习资料和本机路径。项目以 [MIT](LICENSE) 发布，第三方依赖保留各自的许可证，见 [THIRD_PARTY_REVIEW](docs/THIRD_PARTY_REVIEW.md)。验证细节见 [VALIDATION](docs/VALIDATION.md)。

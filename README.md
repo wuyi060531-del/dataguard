@@ -93,4 +93,4 @@ docker compose down   # 停止服务，保留数据卷
 
 ## 许可证
 
-尚未选择许可证，在选定之前不授予任何使用、修改或分发权限。依赖的许可见[第三方依赖](docs/THIRD_PARTY_REVIEW.md)。
+以 [MIT 许可证](LICENSE) 发布，Copyright (c) 2026 wuyi060531-del。依赖保留各自的许可证，MIT 不覆盖它们，见[第三方依赖](docs/THIRD_PARTY_REVIEW.md)。
