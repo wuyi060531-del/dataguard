@@ -4,12 +4,20 @@ let historyOffset = 0;
 let busy = false;
 
 function message(text, error = false) {
-  byId('message').textContent = text;
-  byId('message').classList.toggle('error', error);
+  const box = byId('message');
+  box.textContent = text;
+  box.classList.toggle('error', error);
+  box.setAttribute('role', error ? 'alert' : 'status');
+  // 失败信息在页面下方触发时也要看得到，不用回到页面顶部。
+  if (error && typeof box.scrollIntoView === 'function') box.scrollIntoView({block: 'nearest'});
 }
 async function api(path, options = {}) {
-  const response = await fetch(path, options);
-  const body = await response.json();
+  let response;
+  try { response = await fetch(path, options); }
+  catch { throw new Error('无法连接本机服务。请确认服务仍在运行，然后点击“刷新”重试。'); }
+  let body;
+  try { body = await response.json(); }
+  catch { throw new Error(`${response.status}：服务返回了无法识别的内容。`); }
   if (!response.ok) throw new Error(`${body.code || response.status}：${body.message || '请求未完成'}`);
   return body;
 }
@@ -23,12 +31,19 @@ function cell(row, value, label) {
 async function action(work) {
   if (busy) return;
   busy = true;
-  document.querySelectorAll('button').forEach(button => { button.disabled = true; });
-  try { await work(); } catch (error) { message(error.message, true); }
+  const trigger = document.activeElement;
+  document.querySelectorAll('button, #dataset, #csv-file').forEach(control => { control.disabled = true; });
+  try { await work(); } catch (error) {
+    message(error.message, true);
+    const focus = document.activeElement;
+    if (trigger?.matches('button, #dataset, #csv-file') && (focus === document.body || focus === trigger))
+      byId('message').focus({preventScroll: true});
+  }
   finally {
     busy = false;
-    document.querySelectorAll('button').forEach(button => { button.disabled = false; });
+    document.querySelectorAll('button, #dataset, #csv-file').forEach(control => { control.disabled = false; });
     byId('inspect').disabled = !byId('dataset').value;
+    updatePager();
   }
 }
 async function loadDatasets(selected = byId('dataset').value) {
@@ -69,6 +84,87 @@ async function loadHistory(append = false) {
   historyOffset += tasks.length;
   byId('more').hidden = tasks.length < 20;
 }
+const PAGE_SIZE = 50;
+const RULES = {
+  CSV_STRUCTURE: ['CSV 列数不符', '该行的列数与表头不一致（应为 7 列），请检查空行或缺失、多出的单元格。'],
+  REQUIRED_FIELD: ['必填字段为空', '必填字段不能为空。'],
+  DUPLICATE_ORDER: ['订单编号重复', '订单编号在文件中出现多次，所有重复的行都会被标记。'],
+  FIELD_TYPE: ['字段类型不符', '字段的类型或格式不符合要求（数量应为整数，单价应为十进制数）。'],
+  NUMERIC_RANGE: ['数值超出范围', '数量应在 1 到 100，单价应在 0.01 到 10000.00（含边界）。'],
+  DATE_VALIDITY: ['日期时间无效', "应为真实存在的本地日期时间，格式 yyyy-MM-dd'T'HH:mm:ss，不含时区。"],
+  STATUS_ALLOWED: ['状态取值不合法', '状态应为 PENDING、PAID、SHIPPED 或 CANCELLED，区分大小写。'],
+  TOTAL_AMOUNT_POLICY: ['订单金额超过样例策略', '数量乘以单价超过样例业务策略的 100000.00，需要人工复核。']
+};
+let allIssues = [], issuesEmpty = false, issuePage = 0;
+function filteredIssues() {
+  const severity = byId('filter-severity').value, rule = byId('filter-rule').value, field = byId('filter-field').value;
+  return allIssues.filter(issue => (!severity || issue.severity === severity)
+    && (!rule || issue.rule === rule) && (!field || issue.field === field));
+}
+function fillFilter(select, values, label) {
+  select.replaceChildren(new Option('全部', ''));
+  for (const value of values) select.add(new Option(label ? label(value) : value, value));
+}
+function setIssues(issues, empty) {
+  allIssues = issues; issuesEmpty = empty; issuePage = 0;
+  byId('filter-severity').value = '';
+  fillFilter(byId('filter-rule'), [...new Set(issues.map(i => i.rule))].sort(), rule => RULES[rule] ? `${RULES[rule][0]} · ${rule}` : rule);
+  fillFilter(byId('filter-field'), [...new Set(issues.map(i => i.field))].sort());
+  renderIssues();
+}
+function renderIssues() {
+  const matches = filteredIssues();
+  const pages = Math.max(1, Math.ceil(matches.length / PAGE_SIZE));
+  issuePage = Math.min(issuePage, pages - 1);
+  const from = issuePage * PAGE_SIZE;
+  byId('issues').replaceChildren();
+  for (const issue of matches.slice(from, from + PAGE_SIZE)) {
+    const row = document.createElement('tr');
+    const known = RULES[issue.rule];
+    const labels = ['记录 / 文件行', '订单编号', '字段', '规则', '严重程度', '原因'];
+    const values = [`${issue.recordNumber} / ${issue.lineNumber}`, issue.orderId, issue.field,
+      known ? `${known[0]} · ${issue.rule}` : issue.rule, '', ''];
+    values.forEach((value, index) => {
+      const td = cell(row, value, labels[index]);
+      if (index === 4) {
+        const severity = document.createElement('span'); severity.className = `issue-severity ${issue.severity}`;
+        severity.textContent = `${issue.severity === 'ERROR' ? '错误' : '警告'} · ${issue.severity}`;
+        td.append(severity);
+      }
+      if (index === 5) {
+        const reason = document.createElement('div');
+        reason.append(document.createTextNode(known ? known[1] : issue.message));
+        if (known) { const original = document.createElement('span'); original.className = 'reason-original'; original.textContent = issue.message; reason.append(original); }
+        td.replaceChildren(reason);
+      }
+    });
+    byId('issues').append(row);
+  }
+  if (!matches.length) {
+    const row = document.createElement('tr');
+    cell(row, issuesEmpty ? '无订单记录，暂不评估数据质量。' : allIssues.length ? '没有符合筛选条件的问题。' : '当前报告没有问题记录。').colSpan = 6;
+    byId('issues').append(row);
+  }
+  byId('issue-count').textContent = allIssues.length
+    ? `共 ${allIssues.length} 项问题${matches.length === allIssues.length ? '' : `，筛选后 ${matches.length} 项`}${matches.length ? `；当前显示第 ${from + 1}–${Math.min(from + PAGE_SIZE, matches.length)} 项` : ''}。`
+    : '';
+  byId('issues-page').textContent = `第 ${issuePage + 1} / ${pages} 页`;
+  updatePager();
+}
+function updatePager() {
+  const pages = Math.max(1, Math.ceil(filteredIssues().length / PAGE_SIZE));
+  byId('issues-prev').disabled = busy || issuePage <= 0;
+  byId('issues-next').disabled = busy || issuePage >= pages - 1;
+  byId('filter-reset').disabled = busy;
+}
+for (const id of ['filter-severity', 'filter-rule', 'filter-field'])
+  byId(id).addEventListener('change', () => { issuePage = 0; renderIssues(); });
+byId('filter-reset').addEventListener('click', () => {
+  for (const id of ['filter-severity', 'filter-rule', 'filter-field']) byId(id).value = '';
+  issuePage = 0; renderIssues();
+});
+byId('issues-prev').addEventListener('click', () => { issuePage -= 1; renderIssues(); });
+byId('issues-next').addEventListener('click', () => { issuePage += 1; renderIssues(); });
 async function showTask(id) {
   const task = await api(`/api/tasks/${encodeURIComponent(id)}`);
   if (task.status !== 'SUCCEEDED') {
@@ -109,28 +205,11 @@ async function showTask(id) {
   }
   byId('rules').textContent = empty ? '没有可供规则检查的订单记录。'
     : Object.entries(report.issuesByRule).map(([name, count]) => `${name}：${count}`).join(' · ') || '本次检查未发现质量问题。';
-  byId('issues').replaceChildren();
-  for (const issue of report.issues.slice(0, 100)) {
-    const row = document.createElement('tr');
-    const values = [`${issue.recordNumber} / ${issue.lineNumber}`, issue.orderId, issue.field, issue.rule, issue.severity, issue.message];
-    const labels = ['记录 / 文件行', '订单编号', '字段', '规则', '严重程度', '原因'];
-    values.forEach((value, index) => {
-      const td = cell(row, index === 4 ? '' : value, labels[index]);
-      if (index === 4) {
-        const severity = document.createElement('span'); severity.className = `issue-severity ${issue.severity}`;
-        severity.textContent = `${issue.severity === 'ERROR' ? '错误' : '警告'} · ${issue.severity}`;
-        td.append(severity);
-      }
-    });
-    byId('issues').append(row);
-  }
+  setIssues(report.issues, empty);
   byId('json-report').href = `/api/tasks/${encodeURIComponent(id)}/report`;
   byId('html-report').href = `/api/tasks/${encodeURIComponent(id)}/report.html`;
-  if (!report.issues.length) {
-    const row = document.createElement('tr');
-    cell(row, empty ? '无订单记录，暂不评估数据质量。' : '当前报告没有问题记录。').colSpan = 6;
-    byId('issues').append(row);
-  }
+  byId('json-download').href = byId('json-report').href;
+  byId('html-download').href = byId('html-report').href;
   message(empty ? '检测完成：无数据可评估。结果已保存。'
     : `检测完成：${report.totalRecords} 条记录，${report.invalidRecords} 条异常。结果已保存。`);
 }

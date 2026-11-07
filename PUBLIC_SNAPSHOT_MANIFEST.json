@@ -26,6 +26,11 @@
       "sourceBlob": "e8f8a35c60e7882f98d03fd57d1e8a814eaf6e98"
     },
     {
+      "path": ".gitignore",
+      "sha256": "16d7e21ac2de323ad8b48f30df2d763166ab6a8099076fb7ab4c51e204a39ceb",
+      "sourceBlob": "47994d05c0170c5855e1d50c3600a9b85c69267e"
+    },
+    {
       "path": ".mvn/jvm.config",
       "sha256": "76e629479d60af9938cde9be01a6de74619c2ba48b54c22066137b368bb13d0d",
       "sourceBlob": "4b8447838707b674fa6c0f0401b25cc902774c5d"
@@ -39,6 +44,14 @@
       "path": "Dockerfile",
       "sha256": "42dc1bbec12fa03ac02d67b4ca4c2e2937d6fbfb877e82c19107aa4911dec8e7",
       "sourceBlob": "eadf72eabb44653acef2bd17caf140f9b01be7e9"
+    },
+    {
+      "path": "README.md",
+      "sha256": "277bbb1f509084624cc643e30f8b9f756b3ee2779379495dfab0689bdd037eff"
+    },
+    {
+      "path": "SECURITY.md",
+      "sha256": "b9880d9978adbbecacfcbeea611d23358e383d8d711ca0ecb6ecbcea2770f50d"
     },
     {
       "path": "compose.env.example",
@@ -56,14 +69,34 @@
       "sourceBlob": "fe51488c7066f6687ef680d6bfaa4f7768ef205c"
     },
     {
+      "path": "data/README.md",
+      "sha256": "a3b8356fcf6e2e7d8fd8525b63cba230928b862c8c8118321c5b0871d8569919"
+    },
+    {
       "path": "data/raw/orders.csv",
       "sha256": "7ebbaa0f671496df9c30f2f9b8e1f5c2bbd4f00faa57ebeb8d6597724548c725",
       "sourceBlob": "15e28bed6c63f48b81aa1eee0944fe8a889f4979"
     },
     {
+      "path": "docs/API.md",
+      "sha256": "b032d12f9ddf8bae77a6161441678226307b54cbbf826b15409da7cf4a5b5074",
+      "sourceBlob": "5011b7dca19917428765d5a86ed32fd189ad9933"
+    },
+    {
+      "path": "docs/DEMO.md",
+      "sha256": "bfe6cc9e1c75cec8e8e25e7f633eaf52ac6418b19173ddc75d8dd6570316e3f9"
+    },
+    {
       "path": "docs/THIRD_PARTY_REVIEW.md",
-      "sha256": "feabb516137ccc81fd25c018afde46e038d0373078573137ca9671c7b9d4783e",
-      "sourceBlob": "bbd037ae11263196b67f0d02e7a125f27f9be042"
+      "sha256": "f763ab3ee391feaebed4491c5b24634ebf6a19c15ec7c6f57a680e956ed88817"
+    },
+    {
+      "path": "docs/VALIDATION.md",
+      "sha256": "09821bb1d9a6a6f1005de06ef05a3377544f6f998818e080cca45c0020c7dbf0"
+    },
+    {
+      "path": "docs/architecture.md",
+      "sha256": "2f8512724c4b28c48f0b01ccfcb71dbf7ac445eda8a1efd330d9b6004dfbfc86"
     },
     {
       "path": "docs/evidence/boot4-release/dependencies.json",
@@ -94,6 +127,26 @@
       "path": "docs/evidence/boot4-release/tests.json",
       "sha256": "3e5c0173199303602e138e63243922b659d0d208de204483ad738d10436589f0",
       "sourceBlob": "a3b23c214541f454356d0783691420d0b80ebd51"
+    },
+    {
+      "path": "docs/evidence/frontend-issues/desktop-findings.png",
+      "sha256": "32a3eb17402572e7b34d9233ef2e3b67207686c1bbfd354bd4c83f41d1b2decf",
+      "sourceBlob": "ba97625c126c6bb053a38fa4f57923ee68ece5c1"
+    },
+    {
+      "path": "docs/evidence/frontend-issues/findings-checks.json",
+      "sha256": "708816ec67f1c9d3426f03c6166263d4f05026df6ffaed54ece26da836bf893e",
+      "sourceBlob": "50eb55a955d656b192b31468a42c7c55e287befd"
+    },
+    {
+      "path": "docs/evidence/frontend-issues/mobile-findings.png",
+      "sha256": "91618f0f7526169c05987a5c5bbd90211f50ea764508a0b677f87ed5c8dfccd1",
+      "sourceBlob": "6247047a286276cac9c95be418fbc8fdd5c9cedb"
+    },
+    {
+      "path": "docs/evidence/frontend-issues/stage1-after-checks.json",
+      "sha256": "13dd3c69de2293b155854e8c2ce555659040ae4f01c3115081a7d94ce5da2199",
+      "sourceBlob": "8a519aa8815635a916d07edced20242318692787"
     },
     {
       "path": "docs/evidence/frontend-stage1/after-checks.json",
@@ -177,48 +230,8 @@
     },
     {
       "path": "docs/frontend-stage1.md",
-      "sha256": "9164d19efcf257892de6ad15e8fbf99876b0a258ca76563c14bdfa3261aeaa92",
-      "sourceBlob": "ff418470fc760ba8f59c28ef758637361b3a8c95"
-    },
-    {
-      "path": "docs/API.md",
-      "sha256": "b032d12f9ddf8bae77a6161441678226307b54cbbf826b15409da7cf4a5b5074",
-      "sourceBlob": "5011b7dca19917428765d5a86ed32fd189ad9933"
-    },
-    {
-      "path": "docs/architecture.md",
-      "sha256": "fd7537457c38982e13bd5a91d7b04d9f84d371cef9daf8320752ea9b7027c638",
-      "sourceBlob": "7c5a2471ef8741de88a4a63f3fe1a2a57cf311c1"
-    },
-    {
-      "path": "data/README.md",
-      "sha256": "a04ee3195b57793770c15b490d113de5e513fa7dbd651f9fbf1a2db159541818",
-      "sourceBlob": "bdc138ca4ee8d94d599ccc4311379e766230c32b"
-    },
-    {
-      "path": "docs/DEMO.md",
-      "sha256": "ef4789392ac574586435558e02a54205b4efae49dc516822888c45414761e856",
-      "sourceBlob": "d252e551af81a23b5f22a3eab7b111d5923efa39"
-    },
-    {
-      "path": "README.md",
-      "sha256": "c97ebc5dec85a53241b85ee975bbf69e94c9ef9384ca207f31c1a375d64e9972",
-      "sourceBlob": "32ec110450a114afdca88f54c9af525d8c345d66"
-    },
-    {
-      "path": "SECURITY.md",
-      "sha256": "4ade2eadbd1ad69fd9cf2d9f025c3d321f44f1e767ea175a4583718f2451595e",
-      "sourceBlob": "f828414cd67aee5f6fd1ed79a2e9710c33f7c447"
-    },
-    {
-      "path": "docs/VALIDATION.md",
-      "sha256": "9923c5f413b4a984e2137a760e39bc12ce63c69d8b2dceec9ad9c8dc0c02c7e4",
-      "sourceBlob": "671b974e42c9b2a9b7c41e9cd7c4de21a707ca13"
-    },
-    {
-      "path": ".gitignore",
-      "sha256": "16d7e21ac2de323ad8b48f30df2d763166ab6a8099076fb7ab4c51e204a39ceb",
-      "sourceBlob": "47994d05c0170c5855e1d50c3600a9b85c69267e"
+      "sha256": "54a5997bae21d15ce6997ffb02910dfb28773b137a0f25b587328a9c8b62fdb6",
+      "sourceBlob": "44ee03f5faf16b4c6d1b47485fa8ef16de58d78c"
     },
     {
       "path": "mvnw",
@@ -477,18 +490,16 @@
     },
     {
       "path": "src/main/resources/static/app.css",
-      "sha256": "14c961ddef34430367d7cf613a14ce745b40b5e45e57a76ca4d9e4fb3d3ebae9",
-      "sourceBlob": "5b7a6cb8ef42ba8a355cf13c498f2758438677e4"
+      "sha256": "fc5bdb1105a0ff625157e205219b59c2acfbcbe6e74e988421fd232c6b892ce7"
     },
     {
       "path": "src/main/resources/static/app.js",
-      "sha256": "28e22300c30e9d61f8e497bdf80b0b102a48474ad4b287ade5522f79aa76a6d1",
-      "sourceBlob": "462ce0bf0ea20838b33417a3b98a7c4242f6712b"
+      "sha256": "89751c61dbcdfcd6df65d45c3050abccc0fdd62f73dad96a9617dd7448925edc",
+      "sourceBlob": "5c98c038bdc87ec4a1174d9c24007e09898ae79f"
     },
     {
       "path": "src/main/resources/static/index.html",
-      "sha256": "2f1d1b507d0095392a7d27d9aec099527e831893b8c58b281811d3f3d38fa765",
-      "sourceBlob": "d5ba2ce8511ef833f9e93248b152e1e313a5fdc0"
+      "sha256": "e59296d1834032ffb3a628d38378aa462d9a9940be91d8f689b1ee7de2493ee2"
     },
     {
       "path": "src/test/java/dataguard/api/ApiIntegrationTest.java",

@@ -1,0 +1,111 @@
+{
+  "phase": "after",
+  "checks": [
+    {
+      "name": "sample API remains 40/29/11/11/72.50",
+      "passed": true
+    },
+    {
+      "name": "desktop report overview is in first viewport",
+      "passed": true
+    },
+    {
+      "name": "execution and dirty-data outcome are separately labelled",
+      "passed": true
+    },
+    {
+      "name": "dirty metrics are not styled as clean",
+      "passed": true
+    },
+    {
+      "name": "390px main page has no whole-page overflow",
+      "passed": true
+    },
+    {
+      "name": "mobile issue identifiers have a readable full-width cell",
+      "passed": true
+    },
+    {
+      "name": "mobile issue labels match semantic headers",
+      "passed": true
+    },
+    {
+      "name": "390px standalone HTML has no whole-page overflow",
+      "passed": true
+    },
+    {
+      "name": "HTML table overflow is locally scrollable",
+      "passed": true
+    },
+    {
+      "name": "zero-record API still returns score 100",
+      "passed": true
+    },
+    {
+      "name": "zero-record UI says no data to assess",
+      "passed": true
+    },
+    {
+      "name": "zero-record score metric does not imply quality passed",
+      "passed": true
+    },
+    {
+      "name": "zero-record history labels quality as unassessed",
+      "passed": true
+    },
+    {
+      "name": "zero-record HTML explains convention without changing score",
+      "passed": true
+    },
+    {
+      "name": "warning-only detection succeeds with one invalid record",
+      "passed": true
+    },
+    {
+      "name": "warning-only outcome is distinct from errors",
+      "passed": true
+    },
+    {
+      "name": "clean API remains valid",
+      "passed": true
+    },
+    {
+      "name": "clean report explicitly references current rules",
+      "passed": true
+    },
+    {
+      "name": "untrusted text stays text in main page",
+      "passed": true
+    },
+    {
+      "name": "long untrusted values do not overflow main page",
+      "passed": true
+    },
+    {
+      "name": "long snapshot is escaped and does not overflow HTML page",
+      "passed": true
+    },
+    {
+      "name": "empty-file task still fails rather than producing a report",
+      "passed": true
+    },
+    {
+      "name": "no unhandled browser runtime exceptions",
+      "passed": true
+    }
+  ],
+  "measurements": {
+    "desktopResultTop": 437.125,
+    "mobilePage": {
+      "viewport": 390,
+      "width": 390
+    },
+    "mobileIssueCellWidth": 302,
+    "mobileHtmlReport": {
+      "viewport": 390,
+      "width": 390
+    }
+  },
+  "browser": "Chrome/156.0.8078.81",
+  "passed": true
+}

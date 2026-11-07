@@ -1,0 +1,37 @@
+{
+  "chrome": "Chrome/156.0.8078.81",
+  "records": 123,
+  "issues": 123,
+  "byRule": {
+    "CSV_STRUCTURE": 121,
+    "TOTAL_AMOUNT_POLICY": 1,
+    "NUMERIC_RANGE": 1
+  },
+  "checks": {
+    "real_report": true,
+    "pagination_50_50_remainder": true,
+    "severity_filter": true,
+    "rule_filter": true,
+    "combined_filter_empty": true,
+    "field_filter_and_filtered_last_item": true,
+    "chinese_and_exact_english_reason": true,
+    "desktop_no_whole_page_overflow": true,
+    "mobile_no_whole_page_overflow": true,
+    "offline_alert_in_view": true,
+    "offline_keyboard_focus": true,
+    "no_unhandled_js_exceptions": true
+  },
+  "desktopWidths": [
+    1366,
+    1366
+  ],
+  "mobileWidths": [
+    390,
+    390
+  ],
+  "offline": {
+    "role": "alert",
+    "visible": true,
+    "focus": "message"
+  }
+}
