@@ -12,7 +12,7 @@
   <header class="brand-bar"><a class="brand" href="/" aria-label="DataGuard 首页"><span class="brand-mark" aria-hidden="true">DG</span>DataGuard</a>
     <span class="environment">本机演示 · V1.1</span></header>
   <div class="page-heading"><h1>订单数据审查</h1><p>从一份 CSV 开始，查看数据质量与问题定位。</p></div>
-  <p id="message" role="status" aria-live="polite">正在读取本地任务记录…</p>
+  <p id="message" role="status" aria-live="polite" tabindex="-1">正在读取本地任务记录…</p>
   <section class="dataset-panel" aria-labelledby="dataset-title">
     <div class="heading"><h2 id="dataset-title">选择订单数据</h2><span class="muted">检测不修改原始文件</span></div>
     <div class="dataset-grid">
@@ -32,12 +32,26 @@
     <div id="quality-summary" class="quality-summary"><strong id="quality-title"></strong><p id="quality-description"></p></div>
     <div id="metrics" class="metrics"></div>
     <div class="report-tools"><a href="#findings">查看问题清单 ↓</a><div class="actions"><a id="json-report" href="#" target="_blank" rel="noopener">查看完整 JSON</a>
-      <a id="html-report" href="#" target="_blank" rel="noopener">查看可阅读 HTML</a></div></div>
+      <a id="json-download" href="#" download>下载 JSON</a>
+      <a id="html-report" href="#" target="_blank" rel="noopener">查看可阅读 HTML</a>
+      <a id="html-download" href="#" download>下载 HTML</a></div></div>
     <p class="muted metric-note">质量分 = 正常记录占比。含警告的记录也计为异常；同一条记录可以有多项问题。</p>
     <p id="rules" class="muted rule-summary"></p>
-    <div id="findings" class="table-wrap"><table class="issues-table"><caption>问题清单 · 页面展示前 100 项，完整清单见报告</caption>
+    <div id="findings">
+      <div class="issue-filters" role="group" aria-label="筛选问题清单">
+        <label>严重程度<select id="filter-severity"><option value="">全部</option><option value="ERROR">错误</option><option value="WARNING">警告</option></select></label>
+        <label>规则<select id="filter-rule"><option value="">全部</option></select></label>
+        <label>字段<select id="filter-field"><option value="">全部</option></select></label>
+        <button id="filter-reset" type="button" class="secondary" data-local>清除筛选</button>
+      </div>
+      <p id="issue-count" class="muted" role="status" aria-live="polite"></p>
+      <div class="table-wrap"><table class="issues-table"><caption>问题清单</caption>
       <thead><tr><th>记录 / 文件行</th><th>订单编号</th><th>字段</th><th>规则</th><th>严重程度</th><th>原因</th></tr></thead>
       <tbody id="issues"></tbody></table></div>
+      <div class="pager actions"><button id="issues-prev" type="button" class="secondary" data-local>上一页</button>
+        <span id="issues-page" class="muted"></span>
+        <button id="issues-next" type="button" class="secondary" data-local>下一页</button></div>
+    </div>
   </section>
   <section aria-labelledby="history-title">
     <div class="heading"><h2 id="history-title">历史任务</h2><button id="refresh" type="button" class="secondary">刷新</button></div>
@@ -47,7 +61,7 @@
       <tbody id="history"></tbody></table></div>
     <button id="more" type="button" class="secondary" hidden>加载更多任务</button>
   </section>
-  <footer>本机单实例演示 · 正式代码由 Codex 辅助实现 · 独立学习进度单独记录</footer>
+  <footer>本机单实例演示 · 在 AI（Codex）辅助下完成</footer>
 </main>
 </body>
 </html>
