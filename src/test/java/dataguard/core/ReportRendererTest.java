@@ -36,5 +36,34 @@ class ReportRendererTest {
         assertTrue(html.contains("No quality issues found."));
         assertTrue(html.contains("100000.00"));
         assertTrue(html.contains("header-only dataset"));
+        assertTrue(html.contains("无数据可评估"));
+        assertFalse(html.contains("通过当前规则检查"));
+        assertTrue(html.contains("执行：检测完成"));
+    }
+
+    @Test
+    void separatesSuccessfulExecutionFromAnErrorOrWarningOutcome() {
+        for (Severity severity : Severity.values()) {
+            QualityIssue issue = new QualityIssue(1, 2, "O1", "quantity", "RANGE", "Review value",
+                    severity, Map.of("quantity", "100"));
+            QualityReport report = new QualityReport("orders.csv", Instant.EPOCH, List.of("quantity"),
+                    1, 0, 1, 1, BigDecimal.ZERO, Map.of("RANGE", 1L), Map.of(severity, 1L), List.of(issue));
+            String html = new ReportRenderer().toHtml(report);
+            assertTrue(html.contains("执行：检测完成"));
+            assertTrue(html.contains("检测完成不代表数据合格"));
+            assertTrue(html.contains(severity == Severity.ERROR ? "发现数据问题" : "存在待复核警告"));
+            assertFalse(html.contains("通过当前规则检查"));
+            assertTrue(html.contains("Quality: 0%"));
+        }
+    }
+
+    @Test
+    void onlyNonemptyCleanDataIsPresentedAsPassingCurrentRules() {
+        QualityReport report = new QualityReport("clean.csv", Instant.EPOCH, List.of("order_id"),
+                1, 1, 0, 0, new BigDecimal("100.00"), Map.of(), Map.of(), List.of());
+        String html = new ReportRenderer().toHtml(report);
+        assertTrue(html.contains("通过当前规则检查"));
+        assertFalse(html.contains("无数据可评估"));
+        assertTrue(html.contains("Quality: 100.00%"));
     }
 }

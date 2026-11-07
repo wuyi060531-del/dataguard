@@ -4,6 +4,14 @@ Java 21 / Spring Boot 4.1.2 / Jackson 3 / JDBC 小型同步后端。上传订单
 
 **公开候选源码，许可证尚待所有者选择。** 未声明任何开源授权；依赖声明见 [第三方审查](docs/THIRD_PARTY_REVIEW.md)。工程在 AI 支持下实现，需求和取舍由项目所有者决定；不能据此声称所有模块由个人独立实现。
 
+## 界面预览
+
+阶段一采用原生 HTML/CSS/JS 浅色审查工作台。任务“检测完成”与数据质量结论分别展示；手机问题条目保留完整标识，零记录显示“无数据可评估”。评分公式与 REST API 不变。
+
+![订单数据审查工作台](docs/evidence/frontend-stage1/after-desktop.png)
+
+[手机问题清单](docs/evidence/frontend-stage1/after-mobile-issues.png) · [修改前后与浏览器验收](docs/frontend-stage1.md)
+
 ## 几分钟演示
 
 准备 JDK 21、Bash、curl 或 wget、unzip，在本目录执行（首次需要联网）：
@@ -23,7 +31,7 @@ bash scripts/run.sh inspect data/raw/orders.csv reports
 
 ## 测试与证据边界
 
-本轮迁移回归为 94 项 Java 测试通过，其中 6 项连接隔离 MySQL 8.4.11，验证真实约束、跨批次回滚和中断恢复。未提供专用测试库环境时默认 **88 通过、6 跳过**，不能称为 MySQL 已验证。学习材料不混入本快照。
+正式 Java 测试现有 96 项。阶段一在本机未提供 MySQL 测试库时实际为 **90 通过、6 跳过**，不能称为本轮本机 MySQL 已验证；本机 Chrome 23 项展示与交互检查通过。此前远程 main 验收为 94 项全通过，包含 6 项真实 MySQL；本次提交的远程结果应以对应 Actions 为准。学习材料不混入本快照。
 
 若已有空的专用 MySQL 8 测试库，设置 DATAGUARD_MYSQL_TEST_URL / USERNAME / PASSWORD 后运行 verify。测试结束仅清理本次 UUID 数据；不要指向业务库。应用连接 MySQL 使用 DATAGUARD_DB_URL / USERNAME / PASSWORD，并设置 SPRING_PROFILES_ACTIVE=mysql，数据库密码均由环境提供。
 
@@ -39,7 +47,7 @@ python3 scripts/demo-check.py verify --state .setup/demo-state.json
 
 ## Docker / CI
 
-Dockerfile、Compose、GitHub Actions 已提供。本轮 Docker 29.8.2 / Compose 5.5.0 实际构建和启动通过，HTTP、命名卷重启、数据库故障 unhealthy/503 与恢复已验证；**远程 Actions 尚未运行**。具备 Docker 后复制 compose.env.example 为 .env，填写两组不同随机密码，再执行：
+Dockerfile、Compose、GitHub Actions 已提供。本轮 Docker 29.8.2 / Compose 5.5.0 实际构建和启动通过，HTTP、命名卷重启、数据库故障 unhealthy/503 与恢复已验证；此前 Private 主线 [Actions 42241983093](https://github.com/wuyi060531-del/dataguard/actions/runs/42241983093) 已实际成功；本次更新的状态见对应提交的 Actions。具备 Docker 后复制 compose.env.example 为 .env，填写两组不同随机密码，再执行：
 
 ```bash
 docker compose up --build --wait

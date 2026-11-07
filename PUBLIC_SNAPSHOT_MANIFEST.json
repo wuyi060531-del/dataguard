@@ -1,6 +1,6 @@
 {
-  "createdAt": "2026-11-06T11:15:12.024316+00:00",
-  "sourceRevision": "3250f9d1fdfadc1314ab8144c08cee81316add57",
+  "createdAt": "2026-11-07T01:56:02.127688+00:00",
+  "sourceRevision": "88e0466717321bfc778ccb5157dd2ee2a11c5bea",
   "publishingAuthorized": false,
   "licenseSelected": false,
   "scope": "Allowlisted committed formal sources; no Git history, personal learning, IDE, runtime databases, credentials or local paths",
@@ -96,6 +96,91 @@
       "sourceBlob": "a3b23c214541f454356d0783691420d0b80ebd51"
     },
     {
+      "path": "docs/evidence/frontend-stage1/after-checks.json",
+      "sha256": "13dd3c69de2293b155854e8c2ce555659040ae4f01c3115081a7d94ce5da2199",
+      "sourceBlob": "8a519aa8815635a916d07edced20242318692787"
+    },
+    {
+      "path": "docs/evidence/frontend-stage1/after-desktop.png",
+      "sha256": "878aa0d660b6e46b80a4e01ddf5ea7a934c053c32ab822f825e0d0e69556ebd6",
+      "sourceBlob": "fe1c36216b858b5260e68f03e7be3a067ccc6150"
+    },
+    {
+      "path": "docs/evidence/frontend-stage1/after-mobile-html.png",
+      "sha256": "0326e5ddc4e04cf1503282abee5d34e34ba67343b98ecda983a5f4cd978ff59a",
+      "sourceBlob": "f44d7dc62ab9d4c74dd9341366a88e20002376e8"
+    },
+    {
+      "path": "docs/evidence/frontend-stage1/after-mobile-issues.png",
+      "sha256": "148a1d41c6d70cca54ad17b2ea6e385b4807187aa75ca06d17ed9dd69e04de25",
+      "sourceBlob": "b547c7d599ef8efd0d4ec72a68480fde4322d123"
+    },
+    {
+      "path": "docs/evidence/frontend-stage1/after-mobile-overview.png",
+      "sha256": "6c3dac78b2a55b4413cf8cab97527e51c0193f833cb884aedfaf72b007d9521f",
+      "sourceBlob": "bf0276c92faf1813a0c68414b9956ebe0727a9dd"
+    },
+    {
+      "path": "docs/evidence/frontend-stage1/after-mobile-top.png",
+      "sha256": "94b92add2e5257cb3fdfffb1745726ea564215569bf7078a0c050212ce0c4d33",
+      "sourceBlob": "e9a69b8b76a739cfcc3ee9d46c495468f648e4f2"
+    },
+    {
+      "path": "docs/evidence/frontend-stage1/after-warning-only.png",
+      "sha256": "e4e08e6aecc8e031975f299918663972e3eae8018133f83d14eaa9fa10b5cd90",
+      "sourceBlob": "fcb4f60eebd41912c6394c12f06bf1cd26332e01"
+    },
+    {
+      "path": "docs/evidence/frontend-stage1/after-zero-records.png",
+      "sha256": "9797ee5885f09265842e7e7d1d72180e4259317156cdf883389c6328e170b541",
+      "sourceBlob": "0de0ad359a69e04596a09e1cacd4311a633319fc"
+    },
+    {
+      "path": "docs/evidence/frontend-stage1/before-checks.json",
+      "sha256": "de56cf20c1a7fd4b4e13a2c55e355ce768b2e2b8d4129c7298710b6042a44241",
+      "sourceBlob": "2c66e9d7aac1a75e3c6f4749a6e7137571e64a70"
+    },
+    {
+      "path": "docs/evidence/frontend-stage1/before-desktop.png",
+      "sha256": "f491bb618465694959793c11a6ff748646c9e8caf3e57822d7fbd7a392163705",
+      "sourceBlob": "8eb871d5d0c53b49f1c52216deba013c6d9661b3"
+    },
+    {
+      "path": "docs/evidence/frontend-stage1/before-mobile-html.png",
+      "sha256": "24fcfdd5f9b6fc3242da654d6a81effdb5382fc4823a6982afc0d5294f36edba",
+      "sourceBlob": "450c610982d3214b67787e4686625279b731d075"
+    },
+    {
+      "path": "docs/evidence/frontend-stage1/before-mobile-issues.png",
+      "sha256": "aedb975d79e72df487b6896ae01235da56200ec6cf896888d2e475d6e7b21add",
+      "sourceBlob": "630da1ef26cbeb27ff2bae167ad7f2189ed3aa2a"
+    },
+    {
+      "path": "docs/evidence/frontend-stage1/before-mobile-overview.png",
+      "sha256": "58987c8d5fbb5ad8e1b92d71feff4f6e8cef75b2a3f508710ed9f4fd9cc2a955",
+      "sourceBlob": "85e816e7be836c90fac61f981fa9c8f7207f99e4"
+    },
+    {
+      "path": "docs/evidence/frontend-stage1/before-mobile-top.png",
+      "sha256": "678af213bc420ff4f6ce450e75d2f627caf9c003d64e1339b91d9958be2106fd",
+      "sourceBlob": "bcabbe4e9590521137a9a712b1c5304180de9353"
+    },
+    {
+      "path": "docs/evidence/frontend-stage1/before-warning-only.png",
+      "sha256": "92dfda46018966d4786099b316994a42b21dea37057dffed35fb45b7cc7776e9",
+      "sourceBlob": "196a95e4ef8609f647aff038bddae282af400b6d"
+    },
+    {
+      "path": "docs/evidence/frontend-stage1/before-zero-records.png",
+      "sha256": "96526381502040b157d1b31b50954f7f8d51e58dc863a88ddfb23a22948125dd",
+      "sourceBlob": "40394e4a0b07baf58857ca500e52fe03b73a039c"
+    },
+    {
+      "path": "docs/frontend-stage1.md",
+      "sha256": "9164d19efcf257892de6ad15e8fbf99876b0a258ca76563c14bdfa3261aeaa92",
+      "sourceBlob": "ff418470fc760ba8f59c28ef758637361b3a8c95"
+    },
+    {
       "path": "docs/API.md",
       "sha256": "b032d12f9ddf8bae77a6161441678226307b54cbbf826b15409da7cf4a5b5074",
       "sourceBlob": "5011b7dca19917428765d5a86ed32fd189ad9933"
@@ -117,8 +202,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "2ffe07749bb55d99845dd0802b45d0a67e0091938c049662370f022e6ca64c57",
-      "sourceBlob": "afb7844a239544e5cecd0cad610367730e519a8c"
+      "sha256": "c97ebc5dec85a53241b85ee975bbf69e94c9ef9384ca207f31c1a375d64e9972",
+      "sourceBlob": "32ec110450a114afdca88f54c9af525d8c345d66"
     },
     {
       "path": "SECURITY.md",
@@ -169,6 +254,11 @@
       "path": "scripts/check-security.py",
       "sha256": "e65a305a12e9e2d2d4a2dfb45bcaf1bc02f11e7cef1e199c261373c1c459a525",
       "sourceBlob": "53d54e3ccf321832d4c0e8932348bfe474c91a85"
+    },
+    {
+      "path": "scripts/check-ui-stage1.py",
+      "sha256": "566e875d2f2c1e647cc14a1996001be0c6435120775e3a0f5793efa105a38c30",
+      "sourceBlob": "faa8ed51f428a5975e8dbd5a8c6ca73d55859b31"
     },
     {
       "path": "scripts/demo-check.py",
@@ -297,8 +387,8 @@
     },
     {
       "path": "src/main/java/dataguard/core/ReportRenderer.java",
-      "sha256": "2199ab5108cbb9edf6db7a26d1222e273e8488844f4c1875c4f22accd3a7fca6",
-      "sourceBlob": "938f056de321f276ddf1a33d68b70b461930c479"
+      "sha256": "d2381f7d891b8c59f90c5da1687431d34e14cfd798edf583c6d9e38bedb76a0b",
+      "sourceBlob": "549b1c88fe87d664c074097e93d52734c8d6ee92"
     },
     {
       "path": "src/main/java/dataguard/core/RequiredFieldRule.java",
@@ -387,18 +477,18 @@
     },
     {
       "path": "src/main/resources/static/app.css",
-      "sha256": "34afb14ea9c660020fe30966211fd4a3429f2d319d9d9405de46c99c22d39b77",
-      "sourceBlob": "2d21f4228de881c16086b9ef834b75eb88145cc6"
+      "sha256": "14c961ddef34430367d7cf613a14ce745b40b5e45e57a76ca4d9e4fb3d3ebae9",
+      "sourceBlob": "5b7a6cb8ef42ba8a355cf13c498f2758438677e4"
     },
     {
       "path": "src/main/resources/static/app.js",
-      "sha256": "97370cb88fdd52e7980c05abe65099f248cda55c819ad73ca066386532c5ba92",
-      "sourceBlob": "fb8816d6e346cddbd0411f3207a14b68381c7085"
+      "sha256": "28e22300c30e9d61f8e497bdf80b0b102a48474ad4b287ade5522f79aa76a6d1",
+      "sourceBlob": "462ce0bf0ea20838b33417a3b98a7c4242f6712b"
     },
     {
       "path": "src/main/resources/static/index.html",
-      "sha256": "2c1ea138596b7f218271f575f258476bdb2753823280317d6405d9597bd095a8",
-      "sourceBlob": "9c9c0576c31e4e9afc7da29fcc17fcbe6c71a857"
+      "sha256": "2f1d1b507d0095392a7d27d9aec099527e831893b8c58b281811d3f3d38fa765",
+      "sourceBlob": "d5ba2ce8511ef833f9e93248b152e1e313a5fdc0"
     },
     {
       "path": "src/test/java/dataguard/api/ApiIntegrationTest.java",
@@ -427,8 +517,8 @@
     },
     {
       "path": "src/test/java/dataguard/core/ReportRendererTest.java",
-      "sha256": "e8fb3922f280d9d0d572be404fb6f92e3dcfcca065fe18688368ad916512a346",
-      "sourceBlob": "73c2026168935095168af9615328cb5ea834eca0"
+      "sha256": "beb24737553e292b87e6b538340db45cc739cd4b3fb55c61f128f556e02fa2cf",
+      "sourceBlob": "cd6a65023e8c398031a9418807104514766c885e"
     },
     {
       "path": "src/test/java/dataguard/persistence/InspectionRepositoryTest.java",
