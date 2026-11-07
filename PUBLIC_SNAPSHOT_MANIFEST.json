@@ -234,7 +234,7 @@
     },
     {
       "path": "docs/frontend-stage1.md",
-      "sha256": "54a5997bae21d15ce6997ffb02910dfb28773b137a0f25b587328a9c8b62fdb6",
+      "sha256": "c17a3ee4de2bb669dff1161796212863b61007ae02ead4a4c89dd42b2baf386f",
       "sourceBlob": "44ee03f5faf16b4c6d1b47485fa8ef16de58d78c"
     },
     {
@@ -494,16 +494,16 @@
     },
     {
       "path": "src/main/resources/static/app.css",
-      "sha256": "fc5bdb1105a0ff625157e205219b59c2acfbcbe6e74e988421fd232c6b892ce7"
+      "sha256": "ce2b269a1ec527eea364ee8985140d0420c0b9966019ecd3f9b940032e1029cf"
     },
     {
       "path": "src/main/resources/static/app.js",
-      "sha256": "89751c61dbcdfcd6df65d45c3050abccc0fdd62f73dad96a9617dd7448925edc",
+      "sha256": "31c441f1f2714b56b05875aaa6b5b4bdc511ad07552c90354fbf7b03a2ed7d5e",
       "sourceBlob": "5c98c038bdc87ec4a1174d9c24007e09898ae79f"
     },
     {
       "path": "src/main/resources/static/index.html",
-      "sha256": "e59296d1834032ffb3a628d38378aa462d9a9940be91d8f689b1ee7de2493ee2"
+      "sha256": "376c3f8c5e368d3fff0adadff7dc89a9c885812d4b1682a5bf6de783d226e6a8"
     },
     {
       "path": "src/test/java/dataguard/api/ApiIntegrationTest.java",

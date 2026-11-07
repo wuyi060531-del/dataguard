@@ -2,6 +2,8 @@
 const byId = id => document.getElementById(id);
 let historyOffset = 0;
 let busy = false;
+let currentTaskId = null;
+const MAX_UPLOAD = 5 * 1024 * 1024;
 
 function message(text, error = false) {
   const box = byId('message');
@@ -31,6 +33,7 @@ function cell(row, value, label) {
 async function action(work) {
   if (busy) return;
   busy = true;
+  document.querySelector('main').setAttribute('aria-busy', 'true');
   const trigger = document.activeElement;
   document.querySelectorAll('button, #dataset, #csv-file').forEach(control => { control.disabled = true; });
   try { await work(); } catch (error) {
@@ -41,9 +44,11 @@ async function action(work) {
   }
   finally {
     busy = false;
+    document.querySelector('main').setAttribute('aria-busy', 'false');
     document.querySelectorAll('button, #dataset, #csv-file').forEach(control => { control.disabled = false; });
     byId('inspect').disabled = !byId('dataset').value;
     updatePager();
+    updateUpload();
   }
 }
 async function loadDatasets(selected = byId('dataset').value) {
@@ -67,6 +72,8 @@ async function loadHistory(append = false) {
   }
   for (const task of tasks) {
     const row = document.createElement('tr');
+    row.dataset.taskId = task.id;
+    if (task.id === currentTaskId) { row.className = 'current-task'; row.setAttribute('aria-current', 'true'); }
     cell(row, new Date(task.createdAt).toLocaleString());
     const identity = cell(row, task.id.slice(0, 8)); identity.title = task.id;
     const status = cell(row, {SUCCEEDED: '检测完成', FAILED: '检测失败', RUNNING: '检测中'}[task.status] || task.status);
@@ -163,9 +170,23 @@ byId('filter-reset').addEventListener('click', () => {
   for (const id of ['filter-severity', 'filter-rule', 'filter-field']) byId(id).value = '';
   issuePage = 0; renderIssues();
 });
-byId('issues-prev').addEventListener('click', () => { issuePage -= 1; renderIssues(); });
-byId('issues-next').addEventListener('click', () => { issuePage += 1; renderIssues(); });
+function turnPage(step) {
+  issuePage += step; renderIssues();
+  const count = byId('issue-count');
+  if (typeof count.scrollIntoView === 'function' && count.getBoundingClientRect().top < 0) count.scrollIntoView({block: 'start'});
+}
+byId('issues-prev').addEventListener('click', () => turnPage(-1));
+byId('issues-next').addEventListener('click', () => turnPage(1));
+function markCurrentTask() {
+  for (const row of byId('history').rows) {
+    const current = row.dataset.taskId === currentTaskId;
+    row.classList.toggle('current-task', current);
+    if (current) row.setAttribute('aria-current', 'true'); else row.removeAttribute('aria-current');
+  }
+}
 async function showTask(id) {
+  currentTaskId = id;
+  markCurrentTask();
   const task = await api(`/api/tasks/${encodeURIComponent(id)}`);
   if (task.status !== 'SUCCEEDED') {
     byId('result').hidden = true;
@@ -204,26 +225,53 @@ async function showTask(id) {
     block.append(number, caption); byId('metrics').append(block);
   }
   byId('rules').textContent = empty ? '没有可供规则检查的订单记录。'
-    : Object.entries(report.issuesByRule).map(([name, count]) => `${name}：${count}`).join(' · ') || '本次检查未发现质量问题。';
+    : Object.entries(report.issuesByRule).map(([name, count]) => `${RULES[name] ? RULES[name][0] + ' · ' : ''}${name}：${count}`).join(' · ') || '本次检查未发现质量问题。';
   setIssues(report.issues, empty);
   byId('json-report').href = `/api/tasks/${encodeURIComponent(id)}/report`;
   byId('html-report').href = `/api/tasks/${encodeURIComponent(id)}/report.html`;
   byId('json-download').href = byId('json-report').href;
   byId('html-download').href = byId('html-report').href;
+  byId('report-title').focus();
   message(empty ? '检测完成：无数据可评估。结果已保存。'
     : `检测完成：${report.totalRecords} 条记录，${report.invalidRecords} 条异常。结果已保存。`);
 }
 byId('dataset').addEventListener('change', () => { byId('inspect').disabled = busy || !byId('dataset').value; });
+function fileProblem(file) {
+  if (!file) return '';
+  if (!/\.csv$/i.test(file.name)) return '只支持 .csv 文件。';
+  if (file.size > MAX_UPLOAD) return 'CSV 文件不能超过 5 MiB。';
+  return '';
+}
+function formatSize(bytes) { return bytes < 1024 ? `${bytes} B` : bytes < 1048576 ? `${(bytes / 1024).toFixed(1)} KiB` : `${(bytes / 1048576).toFixed(2)} MiB`; }
+function updateUpload() {
+  const file = byId('csv-file').files[0], problem = fileProblem(file);
+  byId('file-info').textContent = !file ? '未选择文件，也可以把 CSV 拖到这里。'
+    : problem ? `${file.name}：${problem}` : `已选择 ${file.name}（${formatSize(file.size)}），点击“上传文件”保存。`;
+  byId('drop-zone').classList.toggle('invalid', Boolean(problem));
+  byId('upload').disabled = busy || !file || Boolean(problem);
+}
+byId('csv-file').addEventListener('change', updateUpload);
+const zone = byId('drop-zone');
+for (const name of ['dragenter', 'dragover']) zone.addEventListener(name, event => { event.preventDefault(); if (!busy) zone.classList.add('dragover'); });
+for (const name of ['dragleave', 'drop']) zone.addEventListener(name, event => { event.preventDefault(); zone.classList.remove('dragover'); });
+zone.addEventListener('drop', event => {
+  const files = event.dataTransfer?.files;
+  if (busy || !files || !files.length) return;
+  if (files.length > 1) { byId('file-info').textContent = '一次只能上传一个文件。'; return; }
+  const transfer = new DataTransfer(); transfer.items.add(files[0]);
+  byId('csv-file').files = transfer.files; updateUpload();
+});
 byId('upload-form').addEventListener('submit', event => {
   event.preventDefault();
   action(async () => {
     const file = byId('csv-file').files[0];
     if (!file) throw new Error('请选择 CSV 文件。');
-    if (file.size > 5 * 1024 * 1024) throw new Error('CSV 文件不能超过 5 MiB。');
+    const problem = fileProblem(file);
+    if (problem) throw new Error(problem);
     message('正在保存上传文件…');
     const form = new FormData(); form.append('file', file);
     const dataset = await api('/api/datasets', {method: 'POST', body: form});
-    await loadDatasets(dataset.id); message(`已保存 ${dataset.fileName}，现在可以开始检测。`);
+    await loadDatasets(dataset.id); byId('csv-file').value = ''; message(`已保存 ${dataset.fileName}，现在可以开始检测。`);
   });
 });
 byId('sample').addEventListener('click', () => action(async () => {
@@ -238,3 +286,4 @@ byId('inspect').addEventListener('click', () => action(async () => {
 byId('refresh').addEventListener('click', () => action(async () => { await loadDatasets(); await loadHistory(); message('记录已刷新。'); }));
 byId('more').addEventListener('click', () => action(() => loadHistory(true)));
 action(async () => { await loadDatasets(); await loadHistory(); message('服务就绪。选择文件或导入模拟订单。'); });
+updateUpload();
