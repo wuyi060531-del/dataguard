@@ -1,13 +1,13 @@
 # 第三方依赖与许可证
 
-Boot 4 迁移后实际解析出 96 个 Maven 依赖（含测试依赖）。下表读取自对应的 POM（必要时沿用 parent）和 JAR 里的声明。本表不覆盖构建插件和基础镜像，也不是许可证兼容性的结论。
+Boot 4 迁移后实际解析出 96 个 Maven 依赖（含测试依赖）。下表读取自对应的 POM（必要时沿用 parent）和 JAR 里的声明。本表不覆盖构建插件和基础镜像，也不是法律意见。
 
 需要注意的两处：
 
 - **MySQL Connector/J** 声明为 GPLv2 加 Universal FOSS Exception。
 - **H2** 是 MPL/EPL 双许可。
 
-项目许可证还没有选定。选定前需要核对上游原文；如果将来分发二进制、JRE 或镜像，还要附上对应的 NOTICE 和系统组件声明。
+项目自身以 [MIT](../LICENSE) 发布，只覆盖本仓库的源码和文档；仓库不包含这些依赖的源码或二进制。如果将来分发 JAR、JRE 或 Docker 镜像，要按实际内容附上各依赖的 LICENSE / NOTICE 和系统组件声明，其中 MySQL Connector/J 的 GPLv2 条款（带 Universal FOSS Exception，MIT 属于例外所列的许可）需要在那时重新核对。
 
 | Maven 坐标 | 版本 | POM 声明 | JAR 声明数量 |
 | --- | --- | --- | --- |
@@ -63,7 +63,7 @@ Boot 4 迁移后实际解析出 96 个 Maven 依赖（含测试依赖）。下�
 | org.apache.commons:commons-csv | 1.14.1 | [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0.txt) | 2 |
 | commons-io:commons-io | 2.20.0 | [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0.txt) | 2 |
 | commons-codec:commons-codec | 1.21.0 | [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0.txt) | 2 |
-| com.h2database:h2 | 2.5.250 | 未在本机 POM/parent 找到，分发前人工核对 | 0 |
+| com.h2database:h2 | 2.5.250 | MPL-2.0 与 EPL-1.0 双许可（H2 官方说明，本机 POM 未带声明），分发前人工核对 | 0 |
 | com.mysql:mysql-connector-j | 9.7.0 | The GNU General Public License, v2 with Universal FOSS Exception, v1.0 | 43 |
 | org.springframework.boot:spring-boot-starter-webmvc-test | 4.1.2 | [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0) | 2 |
 | org.springframework.boot:spring-boot-starter-jackson-test | 4.1.2 | [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0) | 2 |

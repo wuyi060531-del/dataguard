@@ -2,7 +2,7 @@
   "createdAt": "2026-11-07T01:56:02.127688+00:00",
   "sourceRevision": "88e0466717321bfc778ccb5157dd2ee2a11c5bea",
   "publishingAuthorized": false,
-  "licenseSelected": false,
+  "licenseSelected": true,
   "scope": "Allowlisted committed formal sources; no Git history, personal learning, IDE, runtime databases, credentials or local paths",
   "files": [
     {
@@ -46,12 +46,16 @@
       "sourceBlob": "eadf72eabb44653acef2bd17caf140f9b01be7e9"
     },
     {
+      "path": "LICENSE",
+      "sha256": "ba5298e2380a8ce9dd875d366f7de6c977579e24d17332b9acb812f77986c440"
+    },
+    {
       "path": "README.md",
-      "sha256": "277bbb1f509084624cc643e30f8b9f756b3ee2779379495dfab0689bdd037eff"
+      "sha256": "9224c5c7179fc26ff7a9ceeea9ab36023e038949983218537360034c1b638b3e"
     },
     {
       "path": "SECURITY.md",
-      "sha256": "b9880d9978adbbecacfcbeea611d23358e383d8d711ca0ecb6ecbcea2770f50d"
+      "sha256": "cc6b090404dd257472884b23517f353914e7a7a80d779ed0a01b0c5fd7eb5a34"
     },
     {
       "path": "compose.env.example",
@@ -88,7 +92,7 @@
     },
     {
       "path": "docs/THIRD_PARTY_REVIEW.md",
-      "sha256": "f763ab3ee391feaebed4491c5b24634ebf6a19c15ec7c6f57a680e956ed88817"
+      "sha256": "016dfee0c40bb5580fb17950f79c03dc5e89a168d48b6d9f2d0f674fec48c7ed"
     },
     {
       "path": "docs/VALIDATION.md",
@@ -561,5 +565,6 @@
       "sha256": "9ac2b26c63c287ed0b5602b61cff88568af61185eb68e7af2b215c8712fd4e6a",
       "sourceBlob": "61aa5736eec419ab21623985f57693b3967a7454"
     }
-  ]
+  ],
+  "license": "MIT"
 }
