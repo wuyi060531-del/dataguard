@@ -8,7 +8,8 @@
   <script src="/app.js" defer></script>
 </head>
 <body>
-<main>
+<a class="skip-link" href="#main">跳到主要内容</a>
+<main id="main" tabindex="-1">
   <header class="brand-bar"><a class="brand" href="/" aria-label="DataGuard 首页"><span class="brand-mark" aria-hidden="true">DG</span>DataGuard</a>
     <span class="environment">本机演示 · V1.1</span></header>
   <div class="page-heading"><h1>订单数据审查</h1><p>从一份 CSV 开始，查看数据质量与问题定位。</p></div>
@@ -18,8 +19,9 @@
     <div class="dataset-grid">
     <form id="upload-form">
       <label for="csv-file">上传 CSV <span class="label-note">UTF-8 · 最多 5 MiB</span></label>
-      <div class="actions"><input id="csv-file" name="file" type="file" accept=".csv" required>
-        <button type="submit" class="secondary">上传文件</button><button id="sample" type="button" class="secondary">导入模拟订单</button></div>
+      <div id="drop-zone" class="drop-zone"><input id="csv-file" name="file" type="file" accept=".csv" required aria-describedby="file-info">
+        <p id="file-info" class="muted" role="status" aria-live="polite">未选择文件，也可以把 CSV 拖到这里。</p></div>
+      <div class="actions"><button id="upload" type="submit" class="secondary">上传文件</button><button id="sample" type="button" class="secondary">导入模拟订单</button></div>
     </form>
     <div class="dataset-choice"><label for="dataset">已保存的数据集</label>
     <div class="actions"><select id="dataset"><option value="">请选择数据集</option></select>
@@ -27,7 +29,7 @@
     </div></div>
   </section>
   <section id="result" aria-labelledby="report-title" hidden>
-    <div class="heading"><h2 id="report-title">当前检测报告</h2><span id="execution-state" class="execution-state">执行：检测完成</span></div>
+    <div class="heading"><h2 id="report-title" tabindex="-1">当前检测报告</h2><span id="execution-state" class="execution-state">执行：检测完成</span></div>
     <p id="report-source" class="report-source"></p>
     <div id="quality-summary" class="quality-summary"><strong id="quality-title"></strong><p id="quality-description"></p></div>
     <div id="metrics" class="metrics"></div>
@@ -46,7 +48,7 @@
       </div>
       <p id="issue-count" class="muted" role="status" aria-live="polite"></p>
       <div class="table-wrap"><table class="issues-table"><caption>问题清单</caption>
-      <thead><tr><th>记录 / 文件行</th><th>订单编号</th><th>字段</th><th>规则</th><th>严重程度</th><th>原因</th></tr></thead>
+      <thead><tr><th scope="col">记录 / 文件行</th><th scope="col">订单编号</th><th scope="col">字段</th><th scope="col">规则</th><th scope="col">严重程度</th><th scope="col">原因</th></tr></thead>
       <tbody id="issues"></tbody></table></div>
       <div class="pager actions"><button id="issues-prev" type="button" class="secondary" data-local>上一页</button>
         <span id="issues-page" class="muted"></span>
@@ -57,7 +59,7 @@
     <div class="heading"><h2 id="history-title">历史任务</h2><button id="refresh" type="button" class="secondary">刷新</button></div>
     <p class="muted">执行完成表示检测已保存，不代表数据合格。手机端可左右滑动历史表格。</p>
     <div class="table-wrap" tabindex="0" role="region" aria-label="历史任务，可左右滚动"><table class="history-table"><caption>每次执行独立保存，关闭服务后仍可继续查询</caption>
-      <thead><tr><th>创建时间</th><th>任务</th><th>执行状态</th><th>记录 / 异常</th><th>质量分</th><th>查看</th></tr></thead>
+      <thead><tr><th scope="col">创建时间</th><th scope="col">任务</th><th scope="col">执行状态</th><th scope="col">记录 / 异常</th><th scope="col">质量分</th><th scope="col">查看</th></tr></thead>
       <tbody id="history"></tbody></table></div>
     <button id="more" type="button" class="secondary" hidden>加载更多任务</button>
   </section>
