@@ -3,11 +3,19 @@ const byId = id => document.getElementById(id);
 let historyOffset = 0;
 let busy = false;
 let currentTaskId = null;
+// 页面状态：idle（还没有结果）、report（有报告）、failed（本次检测失败）。
+function showPanel(which, detail) {
+  byId('result').hidden = which !== 'report';
+  byId('empty-state').hidden = which !== 'idle';
+  byId('failure').hidden = which !== 'failed';
+  if (which === 'failed') { byId('failure-code').textContent = detail.code; byId('failure-message').textContent = detail.message; }
+}
 const MAX_UPLOAD = 5 * 1024 * 1024;
 
-function message(text, error = false) {
+function message(text, error = false, state = error ? 'error' : 'info') {
   const box = byId('message');
   box.textContent = text;
+  box.dataset.state = state;
   box.classList.toggle('error', error);
   box.setAttribute('role', error ? 'alert' : 'status');
   // 失败信息在页面下方触发时也要看得到，不用回到页面顶部。
@@ -103,6 +111,59 @@ const RULES = {
   TOTAL_AMOUNT_POLICY: ['订单金额超过样例策略', '数量乘以单价超过样例业务策略的 100000.00，需要人工复核。']
 };
 let allIssues = [], issuesEmpty = false, issuePage = 0;
+function renderComposition(report, empty) {
+  const box = byId('composition');
+  box.hidden = empty;
+  if (empty) return;
+  const total = report.totalRecords;
+  box.querySelector('.seg-valid').style.width = `${(report.validRecords / total) * 100}%`;
+  box.querySelector('.seg-invalid').style.width = `${(report.invalidRecords / total) * 100}%`;
+  byId('composition-legend').textContent = `正常 ${report.validRecords} 条 · 异常 ${report.invalidRecords} 条（共 ${total} 条记录）`;
+}
+// 规则分布：数量取自报告的 issuesByRule；条内的错误/警告比例取自问题清单。
+function renderRuleChart(report, empty) {
+  const chart = byId('rule-chart');
+  chart.replaceChildren();
+  const entries = Object.entries(report.issuesByRule).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+  byId('rules').textContent = empty ? '没有可供规则检查的订单记录。'
+    : entries.length ? '按问题数统计，同一条记录可以触发多项问题；百分比是占全部问题的比例。' : '本次检查未发现质量问题。';
+  if (!entries.length) return;
+  const max = Math.max(...entries.map(entry => entry[1]));
+  const bySeverity = {};
+  for (const issue of report.issues) {
+    const counts = bySeverity[issue.rule] || (bySeverity[issue.rule] = {ERROR: 0, WARNING: 0});
+    counts[issue.severity] = (counts[issue.severity] || 0) + 1;
+  }
+  for (const [rule, count] of entries) {
+    const row = document.createElement('button'); row.type = 'button'; row.className = 'rule-row'; row.dataset.rule = rule;
+    row.setAttribute('aria-pressed', 'false');
+    const name = document.createElement('span'); name.className = 'rule-name';
+    name.append(document.createTextNode(RULES[rule] ? RULES[rule][0] : rule));
+    const code = document.createElement('code'); code.textContent = rule; name.append(code);
+    const track = document.createElement('span'); track.className = 'rule-track';
+    track.setAttribute('aria-hidden', 'true');
+    const counts = bySeverity[rule] || {ERROR: 0, WARNING: 0};
+    for (const [severity, cls] of [['ERROR', 'rule-fill-error'], ['WARNING', 'rule-fill-warning']]) {
+      if (!counts[severity]) continue;
+      const fill = document.createElement('span'); fill.className = cls;
+      fill.style.width = `${(counts[severity] / max) * 100}%`; track.append(fill);
+    }
+    const number = document.createElement('span'); number.className = 'rule-count';
+    number.textContent = String(count);
+    const share = document.createElement('small');
+    share.textContent = `${((count / report.totalIssues) * 100).toFixed(1)}%`; number.append(share);
+    row.append(name, track, number);
+    row.addEventListener('click', () => {
+      const select = byId('filter-rule');
+      select.value = select.value === rule ? '' : rule;
+      issuePage = 0; renderIssues();
+    });
+    chart.append(row);
+  }
+  const legend = document.createElement('p'); legend.className = 'rule-legend';
+  legend.innerHTML = '<span><i class="rule-fill-error"></i>错误</span><span><i class="rule-fill-warning"></i>警告</span>';
+  chart.append(legend);
+}
 function filteredIssues() {
   const severity = byId('filter-severity').value, rule = byId('filter-rule').value, field = byId('filter-field').value;
   return allIssues.filter(issue => (!severity || issue.severity === severity)
@@ -130,12 +191,16 @@ function renderIssues() {
     const known = RULES[issue.rule];
     const labels = ['记录 / 文件行', '订单编号', '字段', '规则', '严重程度', '原因'];
     const values = [`${issue.recordNumber} / ${issue.lineNumber}`, issue.orderId, issue.field,
-      known ? `${known[0]} · ${issue.rule}` : issue.rule, '', ''];
+      known ? known[0] : issue.rule, '', ''];
     values.forEach((value, index) => {
       const td = cell(row, value, labels[index]);
+      if (index === 3) {
+        td.classList.add('cell-rule');
+        if (known) { const code = document.createElement('code'); code.textContent = issue.rule; td.append(code); }
+      }
       if (index === 4) {
         const severity = document.createElement('span'); severity.className = `issue-severity ${issue.severity}`;
-        severity.textContent = `${issue.severity === 'ERROR' ? '错误' : '警告'} · ${issue.severity}`;
+        severity.textContent = issue.severity === 'ERROR' ? '错误' : '警告'; severity.title = issue.severity;
         td.append(severity);
       }
       if (index === 5) {
@@ -156,6 +221,8 @@ function renderIssues() {
     ? `共 ${allIssues.length} 项问题${matches.length === allIssues.length ? '' : `，筛选后 ${matches.length} 项`}${matches.length ? `；当前显示第 ${from + 1}–${Math.min(from + PAGE_SIZE, matches.length)} 项` : ''}。`
     : '';
   byId('issues-page').textContent = `第 ${issuePage + 1} / ${pages} 页`;
+  for (const row of byId('rule-chart').querySelectorAll('.rule-row'))
+    row.setAttribute('aria-pressed', String(row.dataset.rule === byId('filter-rule').value));
   updatePager();
 }
 function updatePager() {
@@ -189,12 +256,13 @@ async function showTask(id) {
   markCurrentTask();
   const task = await api(`/api/tasks/${encodeURIComponent(id)}`);
   if (task.status !== 'SUCCEEDED') {
-    byId('result').hidden = true;
+    if (task.status === 'FAILED') showPanel('failed', {code: task.errorCode || 'FAILED', message: task.errorMessage || '检测失败。'});
+    else showPanel('idle');
     message(`${task.status} · ${task.errorCode || '尚未完成'}：${task.errorMessage || '稍后刷新任务状态。'}`, task.status === 'FAILED');
     return;
   }
   const report = await api(`/api/tasks/${encodeURIComponent(id)}/report`);
-  byId('result').hidden = false;
+  showPanel('report');
   byId('report-source').textContent = `${report.sourceName} · ${new Date(report.generatedAt).toLocaleString()}`;
   // This is a display interpretation of the existing report, not a new scoring rule.
   const empty = report.totalRecords === 0;
@@ -210,10 +278,10 @@ async function showTask(id) {
     : report.invalidRecords === 0 ? '本次已配置规则未发现异常，检测结果已保存。'
     : `${report.invalidRecords} 条异常记录 · ${errors} 项错误 · ${warnings} 项警告。检测完成不代表数据合格。`;
   byId('metrics').replaceChildren();
-  for (const [key, label, value] of [['totalRecords', '总记录', report.totalRecords], ['validRecords', '正常记录', report.validRecords],
-    ['invalidRecords', '异常记录', report.invalidRecords], ['totalIssues', '问题数量', report.totalIssues],
-    ['qualityScore', '质量分', empty ? '—' : `${report.qualityScore}%`]]) {
-    const block = document.createElement('div'); block.className = 'metric';
+  for (const [key, label, value] of [['qualityScore', '质量分', empty ? '—' : `${report.qualityScore}%`],
+    ['totalRecords', '总记录', report.totalRecords], ['validRecords', '正常记录', report.validRecords],
+    ['invalidRecords', '异常记录', report.invalidRecords], ['totalIssues', '问题数量', report.totalIssues]]) {
+    const block = document.createElement('div'); block.className = key === 'qualityScore' ? 'metric metric-score' : 'metric';
     block.dataset.metric = key;
     if (!empty && key === 'validRecords' && report.validRecords > 0) block.classList.add('metric-clear');
     if (!empty && ['invalidRecords', 'totalIssues', 'qualityScore'].includes(key)) {
@@ -224,8 +292,8 @@ async function showTask(id) {
     const caption = document.createElement('span'); caption.textContent = label;
     block.append(number, caption); byId('metrics').append(block);
   }
-  byId('rules').textContent = empty ? '没有可供规则检查的订单记录。'
-    : Object.entries(report.issuesByRule).map(([name, count]) => `${RULES[name] ? RULES[name][0] + ' · ' : ''}${name}：${count}`).join(' · ') || '本次检查未发现质量问题。';
+  renderComposition(report, empty);
+  renderRuleChart(report, empty);
   setIssues(report.issues, empty);
   byId('json-report').href = `/api/tasks/${encodeURIComponent(id)}/report`;
   byId('html-report').href = `/api/tasks/${encodeURIComponent(id)}/report.html`;
@@ -233,7 +301,7 @@ async function showTask(id) {
   byId('html-download').href = byId('html-report').href;
   byId('report-title').focus();
   message(empty ? '检测完成：无数据可评估。结果已保存。'
-    : `检测完成：${report.totalRecords} 条记录，${report.invalidRecords} 条异常。结果已保存。`);
+    : `检测完成：${report.totalRecords} 条记录，${report.invalidRecords} 条异常。结果已保存。`, false, 'ok');
 }
 byId('dataset').addEventListener('change', () => { byId('inspect').disabled = busy || !byId('dataset').value; });
 function fileProblem(file) {
@@ -268,7 +336,7 @@ byId('upload-form').addEventListener('submit', event => {
     if (!file) throw new Error('请选择 CSV 文件。');
     const problem = fileProblem(file);
     if (problem) throw new Error(problem);
-    message('正在保存上传文件…');
+    message('正在保存上传文件…', false, 'busy');
     const form = new FormData(); form.append('file', file);
     const dataset = await api('/api/datasets', {method: 'POST', body: form});
     await loadDatasets(dataset.id); byId('csv-file').value = ''; message(`已保存 ${dataset.fileName}，现在可以开始检测。`);
@@ -279,9 +347,16 @@ byId('sample').addEventListener('click', () => action(async () => {
   await loadDatasets(dataset.id); message('模拟订单已导入，点击“开始检测”。');
 }));
 byId('inspect').addEventListener('click', () => action(async () => {
-  message('正在执行规则并保存报告…');
-  const task = await api('/api/tasks', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({datasetId: byId('dataset').value})});
-  await loadHistory(); await showTask(task.id);
+  message('正在执行规则并保存报告…', false, 'busy');
+  byId('inspect').textContent = '检测中…';
+  try {
+    const task = await api('/api/tasks', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({datasetId: byId('dataset').value})});
+    await loadHistory(); await showTask(task.id);
+  } catch (error) {
+    const [code, ...rest] = error.message.split('：');
+    showPanel('failed', rest.length ? {code, message: rest.join('：')} : {code: '检测失败', message: error.message});
+    throw error;
+  } finally { byId('inspect').textContent = '开始检测'; }
 }));
 byId('refresh').addEventListener('click', () => action(async () => { await loadDatasets(); await loadHistory(); message('记录已刷新。'); }));
 byId('more').addEventListener('click', () => action(() => loadHistory(true)));
