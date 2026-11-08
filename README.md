@@ -6,9 +6,9 @@
 
 项目在 AI（Codex）辅助下完成，需求和取舍由我决定。
 
-![订单数据审查工作台](docs/evidence/frontend-stage1/after-desktop.png)
+![订单数据审查工作台：质量结论、规则分布和问题清单](docs/evidence/visual-redesign/desktop-report.png)
 
-[手机端问题清单](docs/evidence/frontend-stage1/after-mobile-issues.png) · [前端修改前后对比](docs/frontend-stage1.md)
+[手机端报告](docs/evidence/visual-redesign/mobile-report.png) · [手机端问题清单](docs/evidence/visual-redesign/mobile-issues.png) · [各状态截图](docs/evidence/visual-redesign/states-desktop.png) · [前端修改记录](docs/frontend-stage1.md)
 
 ## 快速演示
 

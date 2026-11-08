@@ -51,7 +51,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "9224c5c7179fc26ff7a9ceeea9ab36023e038949983218537360034c1b638b3e"
+      "sha256": "a933fe27fa0dceea1784ccb03c8742813b7dc4b4ee698c1d636fc4cf8d847544"
     },
     {
       "path": "SECURITY.md",
@@ -233,8 +233,36 @@
       "sourceBlob": "40394e4a0b07baf58857ca500e52fe03b73a039c"
     },
     {
+      "path": "docs/evidence/visual-redesign/compare-desktop.png",
+      "sha256": "ad556b08101e723b7bce68609084c4739ad483d39b6365df031c5d71cb58cdbc"
+    },
+    {
+      "path": "docs/evidence/visual-redesign/compare-mobile.png",
+      "sha256": "785f44a75478ea145ce2cdd6408ce6cec84997816095e1414140af94df221598"
+    },
+    {
+      "path": "docs/evidence/visual-redesign/desktop-report.png",
+      "sha256": "0894ab98125ed88b44bb7f191ebf08b98d7094d377ddd3b96e451117c2104057"
+    },
+    {
+      "path": "docs/evidence/visual-redesign/mobile-issues.png",
+      "sha256": "dce1e741de301d336d15d8727d742d5ba092d90bbe1d8483c12bba91d26b59a1"
+    },
+    {
+      "path": "docs/evidence/visual-redesign/mobile-report.png",
+      "sha256": "ea90419a0801f3eee132ef08d1ab828a61668c4427166416be41d2e41366c961"
+    },
+    {
+      "path": "docs/evidence/visual-redesign/states-desktop.png",
+      "sha256": "14992a0bc6ca21ffb079207d37ad5142a452cf9039a3d0a622b71e2c9b201f46"
+    },
+    {
+      "path": "docs/evidence/visual-redesign/states-mobile.png",
+      "sha256": "362dde65e95a18aac0ecfce5b32528c36a2e564c6ef0180017eb485ddfdfacd8"
+    },
+    {
       "path": "docs/frontend-stage1.md",
-      "sha256": "c17a3ee4de2bb669dff1161796212863b61007ae02ead4a4c89dd42b2baf386f",
+      "sha256": "f3426e40eda223dcaaee43fedab525eaa7fb8f303c61d94a5dc03437f53b61ee",
       "sourceBlob": "44ee03f5faf16b4c6d1b47485fa8ef16de58d78c"
     },
     {
@@ -494,16 +522,16 @@
     },
     {
       "path": "src/main/resources/static/app.css",
-      "sha256": "ce2b269a1ec527eea364ee8985140d0420c0b9966019ecd3f9b940032e1029cf"
+      "sha256": "722d6941d636c3991453ee59f9a647cf51fe59173426f4f2077bbdb5fdbcc732"
     },
     {
       "path": "src/main/resources/static/app.js",
-      "sha256": "31c441f1f2714b56b05875aaa6b5b4bdc511ad07552c90354fbf7b03a2ed7d5e",
+      "sha256": "61daad5e66632a827a7ab1eee9584792120cded67575446ba93f8451cac6c9ab",
       "sourceBlob": "5c98c038bdc87ec4a1174d9c24007e09898ae79f"
     },
     {
       "path": "src/main/resources/static/index.html",
-      "sha256": "376c3f8c5e368d3fff0adadff7dc89a9c885812d4b1682a5bf6de783d226e6a8"
+      "sha256": "d079333566b0f2ad27a0974c4a7fde1d35a4c789ed718cf60a5ef01870d732ba"
     },
     {
       "path": "src/test/java/dataguard/api/ApiIntegrationTest.java",

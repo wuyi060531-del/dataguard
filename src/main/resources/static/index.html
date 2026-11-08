@@ -10,36 +10,76 @@
 <body>
 <a class="skip-link" href="#main">跳到主要内容</a>
 <main id="main" tabindex="-1">
-  <header class="brand-bar"><a class="brand" href="/" aria-label="DataGuard 首页"><span class="brand-mark" aria-hidden="true">DG</span>DataGuard</a>
+  <header class="topbar"><a class="brand" href="/" aria-label="DataGuard 首页"><span class="brand-mark" aria-hidden="true">DG</span><span>DataGuard</span></a>
     <span class="environment">本机演示 · V1.1</span></header>
-  <div class="page-heading"><h1>订单数据审查</h1><p>从一份 CSV 开始，查看数据质量与问题定位。</p></div>
-  <p id="message" role="status" aria-live="polite" tabindex="-1">正在读取本地任务记录…</p>
-  <section class="dataset-panel" aria-labelledby="dataset-title">
-    <div class="heading"><h2 id="dataset-title">选择订单数据</h2><span class="muted">检测不修改原始文件</span></div>
-    <div class="dataset-grid">
-    <form id="upload-form">
-      <label for="csv-file">上传 CSV <span class="label-note">UTF-8 · 最多 5 MiB</span></label>
-      <div id="drop-zone" class="drop-zone"><input id="csv-file" name="file" type="file" accept=".csv" required aria-describedby="file-info">
-        <p id="file-info" class="muted" role="status" aria-live="polite">未选择文件，也可以把 CSV 拖到这里。</p></div>
-      <div class="actions"><button id="upload" type="submit" class="secondary">上传文件</button><button id="sample" type="button" class="secondary">导入模拟订单</button></div>
-    </form>
-    <div class="dataset-choice"><label for="dataset">已保存的数据集</label>
-    <div class="actions"><select id="dataset"><option value="">请选择数据集</option></select>
-      <button id="inspect" type="button" disabled>开始检测</button></div>
-    </div></div>
+  <div class="page-heading"><h1>订单数据审查</h1><p>从一份 CSV 开始，查看数据质量，并定位到具体的行和字段。</p></div>
+
+  <section class="intake" aria-labelledby="dataset-title">
+    <h2 id="dataset-title" class="kicker">选择订单数据 <span class="kicker-note">检测不修改原始文件</span></h2>
+    <div class="intake-grid">
+      <div class="dataset-choice">
+        <label for="dataset">已保存的数据集</label>
+        <div class="actions"><select id="dataset"><option value="">请选择数据集</option></select>
+          <button id="inspect" type="button" disabled>开始检测</button></div>
+      </div>
+      <form id="upload-form">
+        <span class="field-label" id="upload-label">上传 CSV <span class="label-note">UTF-8 · 最多 5 MiB</span></span>
+        <div id="drop-zone" class="drop-zone">
+          <input id="csv-file" class="file-input" name="file" type="file" accept=".csv" required aria-describedby="file-info">
+          <label for="csv-file" class="file-button">选择 CSV 文件</label>
+          <p id="file-info" class="file-info" role="status" aria-live="polite">未选择文件，也可以把 CSV 拖到这里。</p>
+        </div>
+        <div class="actions"><button id="upload" type="submit" class="secondary">上传文件</button>
+          <button id="sample" type="button" class="secondary">导入模拟订单</button></div>
+      </form>
+    </div>
+    <p id="message" class="statusbar" role="status" aria-live="polite" tabindex="-1" data-state="info">正在读取本地任务记录…</p>
   </section>
-  <section id="result" aria-labelledby="report-title" hidden>
-    <div class="heading"><h2 id="report-title" tabindex="-1">当前检测报告</h2><span id="execution-state" class="execution-state">执行：检测完成</span></div>
-    <p id="report-source" class="report-source"></p>
-    <div id="quality-summary" class="quality-summary"><strong id="quality-title"></strong><p id="quality-description"></p></div>
-    <div id="metrics" class="metrics"></div>
-    <div class="report-tools"><a href="#findings">查看问题清单 ↓</a><div class="actions"><a id="json-report" href="#" target="_blank" rel="noopener">查看完整 JSON</a>
-      <a id="json-download" href="#" download>下载 JSON</a>
-      <a id="html-report" href="#" target="_blank" rel="noopener">查看可阅读 HTML</a>
-      <a id="html-download" href="#" download>下载 HTML</a></div></div>
-    <p class="muted metric-note">质量分 = 正常记录占比。含警告的记录也计为异常；同一条记录可以有多项问题。</p>
-    <p id="rules" class="muted rule-summary"></p>
-    <div id="findings">
+
+  <section id="empty-state" class="empty-state" aria-labelledby="empty-title">
+    <h2 id="empty-title">还没有检测结果</h2>
+    <ol class="steps">
+      <li><strong>准备数据</strong><span>上传一份订单 CSV，或点“导入模拟订单”。</span></li>
+      <li><strong>开始检测</strong><span>选好数据集后点“开始检测”，规则逐条执行。</span></li>
+      <li><strong>查看结论</strong><span>先看质量结论，再按规则和字段定位问题行。</span></li>
+    </ol>
+  </section>
+
+  <section id="failure" class="failure" aria-labelledby="failure-title" hidden>
+    <h2 id="failure-title">本次检测没有完成</h2>
+    <p><span id="failure-code" class="code"></span> <span id="failure-message"></span></p>
+    <p class="muted">没有生成报告，原始文件没有被修改。可以换一份文件重试，或在下方历史任务里查看详情。</p>
+  </section>
+
+  <section id="result" class="report" aria-labelledby="report-title" hidden>
+    <div class="report-head">
+      <div><h2 id="report-title" tabindex="-1">检测报告</h2><p id="report-source" class="report-source"></p></div>
+      <span id="execution-state" class="execution-state" title="执行状态只说明检测是否跑完，与数据质量是否合格无关">执行：检测完成</span>
+    </div>
+    <div class="verdict-grid">
+      <div id="quality-summary" class="quality-summary"><span class="kicker">质量结论</span><strong id="quality-title"></strong><p id="quality-description"></p></div>
+      <div class="verdict-data">
+        <div id="metrics" class="metrics"></div>
+        <div id="composition" class="composition" hidden>
+          <div class="composition-bar" aria-hidden="true"><span class="seg-valid"></span><span class="seg-invalid"></span></div>
+          <p id="composition-legend" class="composition-legend"></p>
+        </div>
+      </div>
+    </div>
+    <p class="muted metric-note">质量分 = 正常记录 ÷ 总记录。含警告的记录也计为异常；同一条记录可以有多项问题。</p>
+
+    <div class="distribution" aria-labelledby="distribution-title">
+      <h3 id="distribution-title" class="kicker">规则分布 <span class="kicker-note">点击一条规则即可筛选下方清单</span></h3>
+      <div id="rule-chart" class="rule-chart" role="group" aria-label="按规则筛选问题清单"></div>
+      <p id="rules" class="muted rule-summary"></p>
+    </div>
+
+    <div id="findings" class="findings">
+      <div class="findings-head"><h3 class="kicker">问题清单</h3>
+        <div class="report-tools"><a id="json-report" href="#" target="_blank" rel="noopener">查看 JSON</a>
+          <a id="json-download" href="#" download>下载 JSON</a>
+          <a id="html-report" href="#" target="_blank" rel="noopener">查看 HTML</a>
+          <a id="html-download" href="#" download>下载 HTML</a></div></div>
       <div class="issue-filters" role="group" aria-label="筛选问题清单">
         <label>严重程度<select id="filter-severity"><option value="">全部</option><option value="ERROR">错误</option><option value="WARNING">警告</option></select></label>
         <label>规则<select id="filter-rule"><option value="">全部</option></select></label>
@@ -55,9 +95,10 @@
         <button id="issues-next" type="button" class="secondary" data-local>下一页</button></div>
     </div>
   </section>
-  <section aria-labelledby="history-title">
-    <div class="heading"><h2 id="history-title">历史任务</h2><button id="refresh" type="button" class="secondary">刷新</button></div>
-    <p class="muted">执行完成表示检测已保存，不代表数据合格。手机端可左右滑动历史表格。</p>
+
+  <section class="history" aria-labelledby="history-title">
+    <div class="heading"><h2 id="history-title" class="kicker">历史任务</h2><button id="refresh" type="button" class="secondary">刷新</button></div>
+    <p class="muted">“检测完成”只表示检测已保存，不代表数据合格。手机端可左右滑动表格。</p>
     <div class="table-wrap" tabindex="0" role="region" aria-label="历史任务，可左右滚动"><table class="history-table"><caption>每次执行独立保存，关闭服务后仍可继续查询</caption>
       <thead><tr><th scope="col">创建时间</th><th scope="col">任务</th><th scope="col">执行状态</th><th scope="col">记录 / 异常</th><th scope="col">质量分</th><th scope="col">查看</th></tr></thead>
       <tbody id="history"></tbody></table></div>
