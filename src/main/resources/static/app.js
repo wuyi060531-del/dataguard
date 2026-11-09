@@ -164,6 +164,16 @@ function renderRuleChart(report, empty) {
   legend.innerHTML = '<span><i class="rule-fill-error"></i>错误</span><span><i class="rule-fill-warning"></i>警告</span>';
   chart.append(legend);
 }
+// The report already carries the raw CSV row; show the value that triggered the issue so the
+// user does not have to reopen the file at the reported line to see what was wrong.
+function issueValueText(issue) {
+  const record = issue.record;
+  if (!record || typeof record !== 'object' || issue.field === '*') return null;
+  const names = String(issue.field).split(',').filter(name => Object.prototype.hasOwnProperty.call(record, name));
+  if (!names.length) return null;
+  const show = name => (String(record[name]).trim() === '' ? '（空）' : String(record[name]));
+  return names.length === 1 ? show(names[0]) : names.map(name => `${name}=${show(name)}`).join('；');
+}
 function filteredIssues() {
   const severity = byId('filter-severity').value, rule = byId('filter-rule').value, field = byId('filter-field').value;
   return allIssues.filter(issue => (!severity || issue.severity === severity)
@@ -194,6 +204,16 @@ function renderIssues() {
       known ? known[0] : issue.rule, '', ''];
     values.forEach((value, index) => {
       const td = cell(row, value, labels[index]);
+      if (index === 2) {
+        const actual = issueValueText(issue);
+        if (actual !== null) {
+          const code = document.createElement('code'); code.className = 'issue-value';
+          code.textContent = actual; code.title = '该字段在 CSV 中的实际内容';
+          const label = document.createElement('span'); label.className = 'issue-value-label'; label.textContent = '实际值 ';
+          const line = document.createElement('div'); line.className = 'issue-value-line'; line.append(label, code);
+          td.append(line);
+        }
+      }
       if (index === 3) {
         td.classList.add('cell-rule');
         if (known) { const code = document.createElement('code'); code.textContent = issue.rule; td.append(code); }

@@ -59,6 +59,16 @@ class ApiIntegrationTest {
         assertThat(report.path("totalIssues").asInt()).isEqualTo(11);
         assertThat(report.path("qualityScore").decimalValue()).isEqualByComparingTo("72.50");
         assertThat(report.path("issues").findValuesAsString("lineNumber")).isNotEmpty();
+        // The web UI shows each issue's actual CSV value from `record`; keep that contract in the API.
+        for (JsonNode issue : report.path("issues")) {
+            assertThat(issue.path("record").isObject()).isTrue();
+            String issueField = issue.path("field").asText();
+            if (!"*".equals(issueField)) {
+                for (String name : issueField.split(",")) {
+                    assertThat(issue.path("record").has(name)).as("raw value of %s", name).isTrue();
+                }
+            }
+        }
         JsonNode tasks = http.getForObject("/api/tasks?datasetId=" + datasetId, JsonNode.class);
         assertThat(tasks.isArray()).isTrue();
         assertThat(tasks.findValuesAsString("id")).contains(taskId);
