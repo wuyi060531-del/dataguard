@@ -157,12 +157,25 @@ function renderRuleChart(report, empty) {
       const select = byId('filter-rule');
       select.value = select.value === rule ? '' : rule;
       issuePage = 0; renderIssues();
+      revealFilteredIssues();
     });
     chart.append(row);
   }
   const legend = document.createElement('p'); legend.className = 'rule-legend';
   legend.innerHTML = '<span><i class="rule-fill-error"></i>错误</span><span><i class="rule-fill-warning"></i>警告</span>';
   chart.append(legend);
+}
+// Clicking a rule bar filters a list that usually sits below the fold. Bring the filter bar (which shows
+// the active rule and the match count) and the first rows into view, otherwise the click looks like a no-op.
+function listNeedsReveal(top, viewportHeight) {
+  return top < 0 || top > viewportHeight * 0.6;
+}
+function revealFilteredIssues() {
+  const target = document.querySelector('.issue-filters');
+  if (target && typeof target.scrollIntoView === 'function'
+      && listNeedsReveal(target.getBoundingClientRect().top, window.innerHeight)) {
+    target.scrollIntoView({block: 'start'});
+  }
 }
 // The report already carries the raw CSV row; show the value that triggered the issue so the
 // user does not have to reopen the file at the reported line to see what was wrong.
