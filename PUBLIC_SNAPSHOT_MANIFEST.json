@@ -322,7 +322,7 @@
     },
     {
       "path": "scripts/frontend_issue_value_test.py",
-      "sha256": "98277053897be4f7705618b2b95705723c9531dc8a832db63549d803448714bf"
+      "sha256": "f68a16449fca4829ca8f3b8e4bafe629277dadad9a4a965dd0b4a388d7fa03c2"
     },
     {
       "path": "scripts/generate_orders.py",
@@ -337,6 +337,10 @@
       "path": "scripts/mvn.sh",
       "sha256": "9149aa8a335ec1bcafa081ed266f6f408dad369e7aa3b1db76227c06bdac7a44",
       "sourceBlob": "1f960adf1546236a5437df87092f6593cb0a8066"
+    },
+    {
+      "path": "scripts/rule-click-reveal.test.cjs",
+      "sha256": "6999486dfcb7c98649dd687a53c2ccbb1705f3852bb1710681d4ef94c2cbdb33"
     },
     {
       "path": "scripts/run.sh",
@@ -534,7 +538,7 @@
     },
     {
       "path": "src/main/resources/static/app.js",
-      "sha256": "9a4cd890b8def1cd63326c424717356855bb3a02d05bd1aec5756441a62750fc",
+      "sha256": "ce3bd477a26cecd0298c14c49f587bb4eecdb3155595af4acca1e0e09dba5b21",
       "sourceBlob": "5c98c038bdc87ec4a1174d9c24007e09898ae79f"
     },
     {
