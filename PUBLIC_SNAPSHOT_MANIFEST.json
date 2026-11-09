@@ -321,9 +321,17 @@
       "sourceBlob": "a123432b557894c60aa4d2850abe014f791e7723"
     },
     {
+      "path": "scripts/frontend_issue_value_test.py",
+      "sha256": "98277053897be4f7705618b2b95705723c9531dc8a832db63549d803448714bf"
+    },
+    {
       "path": "scripts/generate_orders.py",
       "sha256": "e5272a862a9006458f67161668920c41238283b0708352657dc2756deab23eb9",
       "sourceBlob": "cdd89c338721fcb76920afa1040216deb0a6a933"
+    },
+    {
+      "path": "scripts/issue-value.test.cjs",
+      "sha256": "cc168e127b68f4608312bab46a2387eb63aaaab1adff721b7045394d33b6aedb"
     },
     {
       "path": "scripts/mvn.sh",
@@ -522,11 +530,11 @@
     },
     {
       "path": "src/main/resources/static/app.css",
-      "sha256": "722d6941d636c3991453ee59f9a647cf51fe59173426f4f2077bbdb5fdbcc732"
+      "sha256": "51f5c49ca1b3debcd131c0a68cf34f9a2bd971ca94478fa5058516bdd0532224"
     },
     {
       "path": "src/main/resources/static/app.js",
-      "sha256": "61daad5e66632a827a7ab1eee9584792120cded67575446ba93f8451cac6c9ab",
+      "sha256": "9a4cd890b8def1cd63326c424717356855bb3a02d05bd1aec5756441a62750fc",
       "sourceBlob": "5c98c038bdc87ec4a1174d9c24007e09898ae79f"
     },
     {
@@ -535,7 +543,7 @@
     },
     {
       "path": "src/test/java/dataguard/api/ApiIntegrationTest.java",
-      "sha256": "404ad2d649a74a1c4f95f027a2c7d1ec1c1b87c1279a38f246798c610a42a255",
+      "sha256": "b76cd68501a703fbec4a5f437dce600dc7cae8e38a7cb3884d7a46204947dd8b",
       "sourceBlob": "624f9b12951c9d514c2ef202846ff6963a0b2bf4"
     },
     {

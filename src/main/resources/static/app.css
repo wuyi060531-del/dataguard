@@ -164,11 +164,13 @@ caption { text-align: left; margin: 0 0 8px; position: absolute; width: 1px; hei
 .issues-table { table-layout: fixed; }
 .issues-table th:nth-child(1) { width: 9%; }
 .issues-table th:nth-child(2) { width: 11%; }
-.issues-table th:nth-child(3) { width: 11%; }
-.issues-table th:nth-child(4) { width: 16%; }
+.issues-table th:nth-child(3) { width: 16%; }
+.issues-table th:nth-child(4) { width: 14%; }
 .issues-table th:nth-child(5) { width: 10%; }
 .issues-table td:nth-child(1), .issues-table td:nth-child(2) { font-family: var(--mono); font-size: .8125rem; }
 .cell-rule code { display: block; color: var(--muted); }
+.issue-value-line { margin-top: 2px; font-family: var(--sans); font-size: .78rem; color: var(--muted); }
+.issue-value { font-family: var(--mono); font-size: .8125rem; color: var(--ink, inherit); white-space: pre-wrap; overflow-wrap: anywhere; }
 .issue-severity { display: inline-flex; align-items: center; gap: 5px; border-radius: 3px; padding: 1px 8px; font-size: var(--fs-sm); font-weight: 700; white-space: nowrap; }
 .issue-severity::before { content: ''; width: 8px; height: 8px; background: currentColor; }
 .issue-severity.ERROR { color: #8c2017; background: var(--fail-bg); }
