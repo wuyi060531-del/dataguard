@@ -1,5 +1,7 @@
 # DataGuard
 
+> Data-quality checker for order CSV files (Java 21 / Spring Boot): deterministic rules, issues pinned to the exact row and field, JSON/HTML reports that survive a restart. Local single-user project, synthetic data only.
+
 订单 CSV 的数据质量检测工具。上传一份 CSV，按一组确定性规则逐条检查，给出能定位到具体行和字段的问题清单，并生成 JSON 和 HTML 报告。检测任务、失败记录和结果都会保存，服务重启后仍然可查。
 
 技术栈：Java 21、Spring Boot 4.1.2、Jackson 3、JDBC，数据库用 H2（默认）或 MySQL，前端是原生 HTML/CSS/JS。
@@ -7,6 +9,12 @@
 项目在 AI（Codex）辅助下完成，需求和取舍由我决定。
 
 ![订单数据审查工作台：质量结论、规则分布和问题清单](docs/evidence/visual-redesign/desktop-report.png)
+
+*截图来自本机运行的页面和另一份合成订单（200 条记录，质量分 25%），不是下文的内置 40 条样本，所以数字不同。没有任何真实订单数据。*
+
+**两个值得看的工程设计**
+- **同一事务提交**：报告、问题清单和任务状态一起提交；失败任务单独记录，启动时会把上次遗留的 `RUNNING` 标为 `FAILED/INTERRUPTED`，所以重启后状态不会悬空。
+- **预算而不是静默截断**：文件大小、记录数、字段长度和问题数都有上限，超限时整个任务失败，而不是悄悄少报问题。
 
 [手机端报告](docs/evidence/visual-redesign/mobile-report.png) · [手机端问题清单](docs/evidence/visual-redesign/mobile-issues.png) · [各状态截图](docs/evidence/visual-redesign/states-desktop.png) · [前端修改记录](docs/frontend-stage1.md)
 
