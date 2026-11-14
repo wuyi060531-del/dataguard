@@ -230,7 +230,7 @@ footer { text-align: center; padding: 16px 0; }
   /* 窄屏：表头保留给读屏，每条问题是一张紧凑卡片 */
   .issues-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
   .issues-table, .issues-table tbody { display: block; }
-  .issues-table tr { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "line sev" "rule rule" "order field" "reason reason"; gap: 2px 10px; border: 1px solid var(--line); border-radius: 4px; padding: 8px 10px; margin-bottom: 8px; background: var(--surface); }
+  .issues-table tr { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "line sev" "rule rule" "order order" "field field" "reason reason"; gap: 2px 10px; border: 1px solid var(--line); border-radius: 4px; padding: 8px 10px; margin-bottom: 8px; background: var(--surface); }
   .issues-table td { display: block; padding: 0; border: 0; }
   .issues-table td:nth-child(1) { grid-area: line; }
   .issues-table td:nth-child(1)::before { content: '记录/行 '; color: var(--muted); }

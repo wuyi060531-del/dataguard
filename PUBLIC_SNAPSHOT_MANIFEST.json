@@ -534,7 +534,7 @@
     },
     {
       "path": "src/main/resources/static/app.css",
-      "sha256": "51f5c49ca1b3debcd131c0a68cf34f9a2bd971ca94478fa5058516bdd0532224"
+      "sha256": "96bc84623ba0d4899910047ea35588a21a09766ce6693183cc69320f8ff927ba"
     },
     {
       "path": "src/main/resources/static/app.js",
@@ -604,6 +604,10 @@
       "path": "src/test/resources/fixtures/boot35-report.json",
       "sha256": "9ac2b26c63c287ed0b5602b61cff88568af61185eb68e7af2b215c8712fd4e6a",
       "sourceBlob": "61aa5736eec419ab21623985f57693b3967a7454"
+    },
+    {
+      "path": "docs/ENGINEERING_HANDOFF.md",
+      "sha256": "b6f6e6487e5ae0eae721918ba61b836abed48dcf65d075131836dc0c11bb4501"
     }
   ],
   "license": "MIT"
