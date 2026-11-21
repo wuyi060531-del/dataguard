@@ -1,5 +1,7 @@
 'use strict';
 const byId = id => document.getElementById(id);
+const DATASET_PAGE_SIZE = 100;
+let datasetOffset = 0;
 let historyOffset = 0;
 let busy = false;
 let currentTaskId = null;
@@ -28,7 +30,11 @@ async function api(path, options = {}) {
   let body;
   try { body = await response.json(); }
   catch { throw new Error(`${response.status}：服务返回了无法识别的内容。`); }
-  if (!response.ok) throw new Error(`${body.code || response.status}：${body.message || '请求未完成'}`);
+  if (!response.ok) {
+    const error = new Error(`${body.code || response.status}：${body.message || '请求未完成'}`);
+    error.status = response.status;
+    throw error;
+  }
   return body;
 }
 function cell(row, value, label) {
@@ -59,15 +65,36 @@ async function action(work) {
     updateUpload();
   }
 }
+function datasetOption(dataset) {
+  const name = `${dataset.fileName} · ${new Date(dataset.createdAt).toLocaleString()} · ${dataset.id.slice(0, 8)}`;
+  return new Option(name, dataset.id);
+}
 async function loadDatasets(selected = byId('dataset').value) {
-  const datasets = await api('/api/datasets?limit=100');
-  byId('dataset').replaceChildren(new Option('请选择数据集', ''));
-  for (const dataset of datasets) {
-    const name = `${dataset.fileName} · ${new Date(dataset.createdAt).toLocaleString()} · ${dataset.id.slice(0, 8)}`;
-    byId('dataset').add(new Option(name, dataset.id));
+  const datasets = await api(`/api/datasets?limit=${DATASET_PAGE_SIZE}`);
+  const options = datasets.map(datasetOption);
+  if (selected && !datasets.some(dataset => dataset.id === selected)) {
+    try {
+      options.push(datasetOption(await api(`/api/datasets/${encodeURIComponent(selected)}`)));
+    } catch (error) {
+      if (error.status !== 404) throw error;
+      selected = '';
+    }
   }
-  byId('dataset').value = selected;
-  byId('inspect').disabled = !byId('dataset').value;
+  const picker = byId('dataset');
+  picker.replaceChildren(new Option('请选择数据集', ''), ...options);
+  picker.value = selected;
+  datasetOffset = datasets.length;
+  byId('more-datasets').hidden = datasets.length < DATASET_PAGE_SIZE;
+}
+async function loadOlderDatasets() {
+  const datasets = await api(`/api/datasets?limit=${DATASET_PAGE_SIZE}&offset=${datasetOffset}`);
+  const picker = byId('dataset');
+  const displayed = new Set(Array.from(picker.options, option => option.value));
+  const older = datasets.filter(dataset => !displayed.has(dataset.id));
+  for (const dataset of older) picker.add(datasetOption(dataset));
+  datasetOffset += datasets.length;
+  byId('more-datasets').hidden = datasets.length < DATASET_PAGE_SIZE;
+  message(older.length ? `已加载 ${older.length} 个较早的数据集。` : '本页没有新增数据集。');
 }
 async function loadHistory(append = false) {
   if (!append) historyOffset = 0;
@@ -337,6 +364,10 @@ async function showTask(id) {
     : `检测完成：${report.totalRecords} 条记录，${report.invalidRecords} 条异常。结果已保存。`, false, 'ok');
 }
 byId('dataset').addEventListener('change', () => { byId('inspect').disabled = busy || !byId('dataset').value; });
+byId('more-datasets').addEventListener('click', async () => {
+  await action(loadOlderDatasets);
+  if (byId('more-datasets').hidden) byId('dataset').focus();
+});
 function fileProblem(file) {
   if (!file) return '';
   if (!/\.csv$/i.test(file.name)) return '只支持 .csv 文件。';

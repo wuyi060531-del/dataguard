@@ -306,6 +306,10 @@
       "sourceBlob": "faa8ed51f428a5975e8dbd5a8c6ca73d55859b31"
     },
     {
+      "path": "scripts/dataset-picker.test.cjs",
+      "sha256": "e30fe8f5e2c9931e4559d02980185b3597c76862c2599f89c3eac5f3c0ba8b9f"
+    },
+    {
       "path": "scripts/demo-check.py",
       "sha256": "4ae59905fa7dca249f7ce6ae008fd691ed9d59dea54aceac6b46505dbea73a34",
       "sourceBlob": "c51435554af1d3454631a146dbb0ae7cc4227618"
@@ -322,7 +326,7 @@
     },
     {
       "path": "scripts/frontend_issue_value_test.py",
-      "sha256": "f68a16449fca4829ca8f3b8e4bafe629277dadad9a4a965dd0b4a388d7fa03c2"
+      "sha256": "3b7de25d9c185dd1c83c22a9fd4267e00dbae07b511d6c40f936184ce606e538"
     },
     {
       "path": "scripts/generate_orders.py",
@@ -538,12 +542,12 @@
     },
     {
       "path": "src/main/resources/static/app.js",
-      "sha256": "ce3bd477a26cecd0298c14c49f587bb4eecdb3155595af4acca1e0e09dba5b21",
+      "sha256": "949fa6a57aa5be1a720870e416ee07230615e655467eaba6eef1509dbf7ddbd9",
       "sourceBlob": "5c98c038bdc87ec4a1174d9c24007e09898ae79f"
     },
     {
       "path": "src/main/resources/static/index.html",
-      "sha256": "d079333566b0f2ad27a0974c4a7fde1d35a4c789ed718cf60a5ef01870d732ba"
+      "sha256": "fcec380cd9f94a45b2b1ff1aaf6776680f486cb316327bd835cd35b7683c497d"
     },
     {
       "path": "src/test/java/dataguard/api/ApiIntegrationTest.java",
