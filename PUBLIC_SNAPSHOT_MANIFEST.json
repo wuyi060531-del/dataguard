@@ -51,7 +51,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "107793f650fa792279e64859ec610809d2d455c0cd03ee42f07e17794195c505"
+      "sha256": "7fcd8796de4f02b5bbffa82fad30eeec4e3626366e14377dae7c306a737cbb88"
     },
     {
       "path": "SECURITY.md",
@@ -96,11 +96,11 @@
     },
     {
       "path": "docs/VALIDATION.md",
-      "sha256": "09821bb1d9a6a6f1005de06ef05a3377544f6f998818e080cca45c0020c7dbf0"
+      "sha256": "f5e9a8191c7eccd391ca2a31b6e5a0ee7de54fa46a8e3ee4a405b85f535ce3be"
     },
     {
       "path": "docs/architecture.md",
-      "sha256": "2f8512724c4b28c48f0b01ccfcb71dbf7ac445eda8a1efd330d9b6004dfbfc86"
+      "sha256": "9631eec538a1410969b2ae8a6fd3bd31bd08f45ea3d24e94b5f50db1a928e26d"
     },
     {
       "path": "docs/evidence/boot4-release/dependencies.json",
@@ -349,7 +349,7 @@
     },
     {
       "path": "src/main/java/dataguard/Main.java",
-      "sha256": "6b4c58222f6904376f74f8b63ee03570649673f017f1a5dc289d0396bcbc0865",
+      "sha256": "f612de30153bb72fbfdde323602c802f88e218f552d6c9b66578f221f1b259b4",
       "sourceBlob": "a4af1cfc13ee7f35e26bf1baa9a8e4281ed26ab6"
     },
     {
@@ -504,7 +504,7 @@
     },
     {
       "path": "src/main/java/dataguard/service/TaskService.java",
-      "sha256": "4f8e2d66a3571b207c8d0709554d834c51b9a6ea917af520277cb9200194db11",
+      "sha256": "cf9e41107d1b95137e8c9f5a15a32bd68d067f6218cc0c956ce5c9daee7c8730",
       "sourceBlob": "e7b5578d01e5effc6d9e6855860901f2ff45551a"
     },
     {
@@ -599,6 +599,10 @@
       "path": "src/test/java/dataguard/service/DatasetTaskIntegrationTest.java",
       "sha256": "46c4516f3df47aa6131d88e88559ecf6c0d0e4e6bee6831d0874bd7d3f179d8f",
       "sourceBlob": "db2d4c70c741fa96ac8e01dafe5a239cc98fc084"
+    },
+    {
+      "path": "src/test/java/dataguard/service/TaskWriteRecoveryIntegrationTest.java",
+      "sha256": "886c8fc0ce1391e282a0e1022c168e473ec3d993c06e7a3759ca93eec0efe9b4"
     },
     {
       "path": "src/test/resources/fixtures/boot35-report.json",

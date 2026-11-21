@@ -57,15 +57,15 @@ Controller（校验 HTTP 和 DTO）
         → H2 或 MySQL：datasets、inspection_tasks、inspection_reports、quality_issues
 ```
 
-- 报告、问题清单和成功状态在同一个事务里提交。失败的任务单独记录；服务启动时，上次遗留的 `RUNNING` 任务会被标为 `FAILED/INTERRUPTED`。
+- 报告、问题清单和成功状态在同一个事务里提交。失败状态单独保存。数据库暂时写不进去时，服务会重试已退出任务的失败状态。服务启动时，上次遗留的 `RUNNING` 任务会被标为 `FAILED/INTERRUPTED`。
 - 输入上限：文件 5 MiB、10000 条记录、单个字段 4096 个字符。问题数、诊断信息和报告大小也有上限，超限则整个任务失败。
 - 检测不会修改原始 CSV。
 
 ## 测试
 
-共 96 项 Java 测试，其中 6 项需要真实 MySQL。没有 MySQL 时它们会被跳过（本机是 90 通过、6 跳过）。CI 里用真实 MySQL 跑，并要求这 6 项零跳过，同时检查容器重启前后报告和文件是否仍可复用。浏览器端另有 23 项展示和交互检查，在本机 Chrome 上通过。
+共 98 项 Java 测试，其中 7 项需要真实 MySQL，没有配置时会跳过。CI 使用真实 MySQL，并检查容器重启前后报告和文件是否仍可复用。浏览器端另有 23 项展示和交互检查，历史结果见验收记录。
 
-想在本机跑 MySQL 测试，先准备一个**专用的空库**（不要指向业务库），设置 `DATAGUARD_MYSQL_TEST_URL`、`DATAGUARD_MYSQL_TEST_USERNAME`、`DATAGUARD_MYSQL_TEST_PASSWORD` 后运行 `verify`。测试只清理自己写入的数据。应用连接 MySQL 时使用 `DATAGUARD_DB_URL` 等变量，并设置 `SPRING_PROFILES_ACTIVE=mysql`。
+想在本机跑 MySQL 测试，先准备一个**回环地址上的专用空库**，数据库名以 `_test` 结尾。设置 `DATAGUARD_MYSQL_TEST_URL`、`DATAGUARD_MYSQL_TEST_USERNAME`、`DATAGUARD_MYSQL_TEST_PASSWORD` 后运行 `verify`。测试只清理自己写入的数据。应用连接 MySQL 时使用 `DATAGUARD_DB_URL` 等变量，并设置 `SPRING_PROFILES_ACTIVE=mysql`。
 
 端到端演示检查（先启动服务）：
 
