@@ -11,13 +11,15 @@ Java 21、Spring Boot 4.1.2、Jackson 3、Spring JDBC，单实例同步处理订
 | 服务编排 | src/main/java/dataguard/service/TaskService.java | RUNNING 后同步检测，质量问题可形成 SUCCEEDED 报告，无法完成则 FAILED |
 | JDBC/事务 | src/main/java/dataguard/persistence/InspectionRepository.java | 参数绑定、外键/CHECK，报告+全部问题+成功状态在同一 TransactionTemplate 内提交 |
 | 批写/回滚 | src/test/java/dataguard/persistence/MySqlIntegrationTest.java | 250 条一批；300 问题在 250+50 两批写入后注入 FK 故障，整个事务回滚，失败另行记账 |
-| 输入预算/恢复 | src/main/java/dataguard/service/FileStorage.java、TaskService.java | 受控副本、SHA-256、5 MiB/10000 记录，报告/诊断预算；启动恢复旧 RUNNING |
+| 输入预算/恢复 | src/main/java/dataguard/service/FileStorage.java、TaskService.java | 受控副本、SHA-256、5 MiB/10000 记录，报告/诊断预算。运行中定点重试失败终态，启动时恢复旧 RUNNING |
 
 ## 一条请求调用链
 
 POST /api/tasks → DataGuardController → TaskService.startTask → DatasetService/FileStorage 验证副本 → QualityEngine.inspect → QualityRule.validate → InspectionRepository/JdbcTemplate → MySQL InnoDB 四张表。
 
 四表为 datasets、inspection_tasks、inspection_reports、quality_issues。先记录任务，再计算。计算成功后，报告、所有批次的问题和成功状态在同一个数据库事务里保存。出现异常时事务整体回滚，然后单独记录 FAILED，这样回滚不会连失败记录一起删掉。文件系统不在 JDBC 事务里，所以用副本完整性检查和补偿清理来处理，并不保证文件和数据库之间的原子性。
+
+若失败状态的事务也因数据库故障失败，进程记录已结束任务的 ID、错误码和安全提示。调度器每轮结束后间隔一秒，只重试这些 ID，更新条件仍为 `status = 'RUNNING'`。已经写入终态的任务会保留其结果，仍在执行的任务不会加入待重试集合。恢复延迟取决于数据库连接、写入和队列积压。若进程退出，下一次成功启动时会沿用旧任务的 `FAILED/INTERRUPTED` 恢复路径。这套机制适用于单实例部署。
 
 ## 几个值得想一想的设计问题
 

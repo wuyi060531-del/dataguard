@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
-"""Runs the Node pure-function tests for the front end (no browser, no backend, no network)."""
+"""Runs the Node tests for the front end (no browser, no backend, no network)."""
 import shutil
 import subprocess
 import unittest
 from pathlib import Path
 
 
-class IssueValueFrontendTest(unittest.TestCase):
+class FrontendNodeTest(unittest.TestCase):
+    @unittest.skipUnless(shutil.which("node"), "Node.js is required; GitHub-hosted runners provide it")
+    def test_dataset_picker_node_tests_pass(self):
+        self._run("dataset-picker.test.cjs")
+
     @unittest.skipUnless(shutil.which("node"), "Node.js is required; GitHub-hosted runners provide it")
     def test_issue_value_node_tests_pass(self):
         self._run("issue-value.test.cjs")

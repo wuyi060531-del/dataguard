@@ -4,7 +4,15 @@
 
 ## 当前状态
 
-最新提交 `e4b4c1f` 的 [GitHub Actions](https://github.com/wuyi060531-del/dataguard/actions/runs/42326900890) 成功，包含两个任务：`verify`（Java 21 加真实 MySQL 的完整测试，要求 MySQL 集成测试零跳过）和 `container-smoke`（容器构建与启动检查）。
+### 失败状态恢复（2026-11-21）
+
+相同的两项回归在 `main` 的 `bcbabb0` 上均失败。H2 和 MySQL 在事务中写入报告和问题明细后触发真实 CHECK 拒绝并回滚。随后故障装置使新连接不可用，失败状态写入也失败。连接恢复后，原服务内的任务仍停在 `RUNNING`。MySQL 测试使用真实 Connector/J 访问一个无监听的回环端口模拟连接故障，数据库服务进程继续运行，以便独立核对回滚结果。
+
+修复后 `bash scripts/mvn.sh -B -ntp clean verify` 共 98 项通过，零失败、零跳过。其中 7 项使用真实 MySQL 8.4.13。两项新增测试均在同一 Spring 进程内观察到断连期间的重试，并在恢复连接后 5 秒的观察窗内收到 `FAILED/PERSISTENCE_ERROR`。报告和明细计数始终为零。并行长任务仍保持 `RUNNING`，放行后正常成功。对成功或已失败的任务重放终态更新，状态和完成时间均保持原值。既有 H2/MySQL 重启与 HTTP 集成测试一并通过。
+
+### 历史记录
+
+提交 `e4b4c1f` 的 [GitHub Actions](https://github.com/wuyi060531-del/dataguard/actions/runs/42326900890) 成功，包含 Java/MySQL 验证和容器构建与启动检查。
 
 前端改版（见 [frontend-stage1.md](frontend-stage1.md)）在本机的结果：96 项 Java 测试中 90 项通过，6 项需要 MySQL 的测试因本机没有 MySQL 而跳过；本机 Chrome 的 23 项展示与交互检查全部通过。
 
