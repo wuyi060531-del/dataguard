@@ -6,9 +6,11 @@ import dataguard.core.ReportRenderer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /** 正式 V1 入口；原始 Day01 TODO 独立保存在 learning/day01，未计作学生完成。 */
 @SpringBootApplication
+@EnableScheduling
 public class Main {
     public static void main(String[] args) {
         if (args.length > 0 && "inspect".equals(args[0])) {
